@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AA7D0256-9AFE-4097-BD36-7CC723A1208E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TypescriptRedux.WebHost</RootNamespace>
+    <AssemblyName>TypescriptRedux.WebHost</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="source\sample01\index.html" />
+    <Content Include="source\sample02\index.html" />
+    <Content Include="source\sample03\index.html" />
+    <Content Include="source\sample04\index.html" />
+    <Content Include="source\sample08\index.html" />
+    <Content Include="source\sample07\index.html" />
+    <Content Include="source\sample06\index.html" />
+    <Content Include="source\sample05\index.html" />
+    <Content Include="Web.config" />
+    <Content Include="webpack.config.js" />
+    <Content Include="wwwroot\js\helloworld.js" />
+    <Content Include="wwwroot\js\lib\react\react-dom-server.js" />
+    <Content Include="wwwroot\js\lib\react\react-dom-server.min.js" />
+    <Content Include="wwwroot\js\lib\react\react-dom.js" />
+    <Content Include="wwwroot\js\lib\react\react-dom.min.js" />
+    <Content Include="wwwroot\js\lib\react\react-with-addons.js" />
+    <Content Include="wwwroot\js\lib\react\react-with-addons.min.js" />
+    <Content Include="wwwroot\js\lib\react\react.js" />
+    <Content Include="wwwroot\js\lib\react\react.min.js" />
+    <Content Include="wwwroot\js\sample01.js" />
+    <Content Include="wwwroot\js\sample02.js" />
+    <Content Include="wwwroot\js\sample03.js" />
+    <Content Include="wwwroot\js\sample04.js" />
+    <Content Include="wwwroot\js\sample05.js" />
+    <Content Include="wwwroot\js\sample06.js" />
+    <Content Include="wwwroot\js\sample07.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="tsconfig.json" />
+    <Content Include="package.json" />
+    <Content Include="typings.json" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="wwwroot\js\helloworld.js.map" />
+    <Content Include="wwwroot\js\lib\react\.bower.json" />
+    <Content Include="wwwroot\js\lib\react\bower.json" />
+    <Content Include="wwwroot\js\lib\react\LICENSE" />
+    <Content Include="wwwroot\js\lib\react\PATENTS" />
+    <Content Include="wwwroot\js\sample01.js.map" />
+    <Content Include="wwwroot\js\sample02.js.map" />
+    <Content Include="wwwroot\js\sample03.js.map" />
+    <Content Include="wwwroot\js\sample04.js.map" />
+    <Content Include="wwwroot\js\sample05.js.map" />
+    <Content Include="wwwroot\js\sample06.js.map" />
+    <Content Include="wwwroot\js\sample07.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="source\sample01\app.tsx" />
+    <TypeScriptCompile Include="source\sample02\app.tsx" />
+    <TypeScriptCompile Include="source\sample02\helloworld.tsx" />
+    <TypeScriptCompile Include="source\sample03\app.tsx" />
+    <TypeScriptCompile Include="source\sample03\counter.tsx" />
+    <TypeScriptCompile Include="source\sample04\app.tsx" />
+    <TypeScriptCompile Include="source\sample04\counter.tsx" />
+    <TypeScriptCompile Include="source\sample08\actionplayer.tsx" />
+    <TypeScriptCompile Include="source\sample08\app.tsx" />
+    <TypeScriptCompile Include="source\sample08\colorpicker.tsx" />
+    <TypeScriptCompile Include="source\sample08\counter.tsx" />
+    <TypeScriptCompile Include="source\sample08\objectassign.ts" />
+    <TypeScriptCompile Include="source\sample08\reducer.ts" />
+    <TypeScriptCompile Include="source\sample08\shapemaker.tsx" />
+    <TypeScriptCompile Include="source\sample08\shapeviewer.tsx" />
+    <TypeScriptCompile Include="source\sample07\actionplayer.tsx" />
+    <TypeScriptCompile Include="source\sample07\app.tsx" />
+    <TypeScriptCompile Include="source\sample07\colorpicker.tsx" />
+    <TypeScriptCompile Include="source\sample07\counter.tsx" />
+    <TypeScriptCompile Include="source\sample06\app.tsx" />
+    <TypeScriptCompile Include="source\sample06\counter.tsx" />
+    <TypeScriptCompile Include="source\sample05\app.tsx" />
+    <TypeScriptCompile Include="source\sample05\counter.tsx" />
+    <TypeScriptCompile Include="source\sample07\objectassign.ts" />
+    <TypeScriptCompile Include="source\sample07\shapemaker.tsx" />
+    <TypeScriptCompile Include="source\sample07\shapeviewer.tsx" />
+    <TypeScriptCompile Include="typings\browser.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\react-dom\index.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\react-redux\index.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\react-router\history\index.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\react-router\index.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\react\index.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\redux\index.d.ts" />
+    <TypeScriptCompile Include="typings\main.d.ts" />
+    <TypeScriptCompile Include="typings\main\ambient\react-dom\index.d.ts" />
+    <TypeScriptCompile Include="typings\main\ambient\react-redux\index.d.ts" />
+    <TypeScriptCompile Include="typings\main\ambient\react-router\history\index.d.ts" />
+    <TypeScriptCompile Include="typings\main\ambient\react-router\index.d.ts" />
+    <TypeScriptCompile Include="typings\main\ambient\react\index.d.ts" />
+    <TypeScriptCompile Include="typings\main\ambient\redux\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>41511</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:41511/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
