@@ -1,35 +1,27 @@
 ﻿/// <reference path='../../typings/browser.d.ts'/>
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider, connect } from 'react-redux';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { createStore } from "redux";
+import { Provider, connect } from "react-redux";
 
 import Counter from "./counter";
 import ActionPlayer from "./actionplayer";
 import ShapeMaker from "./shapemaker";
 import ShapeViewer from "./shapeviewer";
-import { ColorPicker } from "./colorpicker";
+import { ColorWrapper } from "./colorpicker";
 
 import "./objectassign";
 
 import {myReducers, actions} from "./reducer";
 
-var defaultState = { nextShapeId: 0, width: 100, height: 100, color: "#000000", shapes: [] };
+var defaultState = { nextShapeId: 0, width: 100, height: 100 };
 
-let store = createStore(myReducers,defaultState);
+let store = createStore(myReducers);
 
-class ColorWrapperBase extends React.Component<any, any> {
-    render() {
-        return <ColorPicker color={this.props.color} onChange={this.props.setColor} />;
-    }
-}
-
-const ColorWrapper = connect(
-    (state) => ({ color: state.color }),
-    (dispatch) => ({ setColor: (color) => dispatch({ type: "COLOR_CHANGE", color }) })
-)(ColorWrapperBase);
-
+store.subscribe(() => {
+    console.log("store has been updated. Latest store state:", store.getState());
+});
 ReactDOM.render(
     <Provider store={store}>
         <table>

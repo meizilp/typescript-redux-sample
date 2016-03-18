@@ -1,4 +1,5 @@
 ﻿import * as React from "react";
+import { connect } from "react-redux";
 
 export class NumberPicker extends React.Component<any, any> {
     render() {
@@ -19,6 +20,7 @@ export class NumberPicker extends React.Component<any, any> {
 
 export class ColorPicker extends React.Component<any, any> {
     render() {
+        console.log(this.props);
         const color = this.props.color;
         const rgb = hexToRgb(color);
         const textColor = isDark(color) ? "#fff" : "#000";
@@ -69,10 +71,20 @@ const hexToRgb = (hex: string): { r: number; g: number; b: number; } => {
         b: parseInt(result[3], 16)
     } : null;
 };
-
 const luminance = (color: string) => {
     const rgb = hexToRgb(color);
     return 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
 };
 
 export const isDark = (color: string) => luminance(color) < 100;
+
+class ColorWrapperBase extends React.Component<any, any> {
+    render() {
+        return <ColorPicker color={this.props.color} onChange={this.props.setColor} />;
+    }
+}
+
+export const ColorWrapper = connect(
+    (state) => ({ color: state.color }),
+    (dispatch) => ({ setColor: (color) => dispatch({ type: "COLOR_CHANGE", color }) })
+)(ColorWrapperBase);

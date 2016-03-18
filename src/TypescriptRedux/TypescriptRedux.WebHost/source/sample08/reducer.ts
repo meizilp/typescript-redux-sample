@@ -22,7 +22,10 @@ interface IShapeAction extends IAction {
 interface IDefaultAction extends IAction {
     state: any;
 }
-const changeCounter = ( state:any = {}, action: ICounterAction): any => {
+
+
+
+const changeCounter = (state:any ={width:100,height:100}, action): any => {
     switch (action.type) {
         case "COUNTER_CHANGE":
             return Object.assign({}, state, { [action.field]: state[action.field] + action.by });
@@ -30,16 +33,16 @@ const changeCounter = ( state:any = {}, action: ICounterAction): any => {
             return state;
     }
 };
-const changeColor = (state: any = {}, action: IColorAction): any => {
+const changeColor = (state:string = "#000000" ,action): any => {
     switch (action.type) {
         case "COLOR_CHANGE":
-            return Object.assign({}, state, { color: action.color });
+            return action.color;
         default:
             return state;
     }
 };
 
-const changeShape = (state: any = {}, action: IShapeAction): any => {
+const changeShape = (state: any = { nextShapeId:0,shapes:[]}, action): any => {
     let shape;
     switch (action.type) {
         case "SHAPE_ADD":
@@ -57,7 +60,7 @@ const changeShape = (state: any = {}, action: IShapeAction): any => {
     }
 };
 export var actions = [];
-const defaultReducer = (state: any = {}, action: IDefaultAction): any => {
+const defaultReducer = (state: any = {}, action): any => {
         actions.push(action);
         switch (action.type) {
             case "LOAD":

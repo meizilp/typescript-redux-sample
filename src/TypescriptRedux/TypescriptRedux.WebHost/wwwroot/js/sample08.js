@@ -49,11 +49,6 @@
 
 	/// <reference path='../../typings/browser.d.ts'/>
 	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactDOM = __webpack_require__(/*! react-dom */ 2);
 	var redux_1 = __webpack_require__(/*! redux */ 6);
@@ -65,20 +60,12 @@
 	var colorpicker_1 = __webpack_require__(/*! ./colorpicker */ 36);
 	__webpack_require__(/*! ./objectassign */ 38);
 	var reducer_1 = __webpack_require__(/*! ./reducer */ 39);
-	var defaultState = { nextShapeId: 0, width: 100, height: 100, color: "#000000", shapes: [] };
-	var store = redux_1.createStore(reducer_1.myReducers, defaultState);
-	var ColorWrapperBase = (function (_super) {
-	    __extends(ColorWrapperBase, _super);
-	    function ColorWrapperBase() {
-	        _super.apply(this, arguments);
-	    }
-	    ColorWrapperBase.prototype.render = function () {
-	        return React.createElement(colorpicker_1.ColorPicker, {color: this.props.color, onChange: this.props.setColor});
-	    };
-	    return ColorWrapperBase;
-	}(React.Component));
-	var ColorWrapper = react_redux_1.connect(function (state) { return ({ color: state.color }); }, function (dispatch) { return ({ setColor: function (color) { return dispatch({ type: "COLOR_CHANGE", color: color }); } }); })(ColorWrapperBase);
-	ReactDOM.render(React.createElement(react_redux_1.Provider, {store: store}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", {style: { width: 220 }}, React.createElement(counter_1.default, {field: "width", step: 10}), React.createElement(counter_1.default, {field: "height", step: 10}), React.createElement(ColorWrapper, null)), React.createElement("td", {style: { verticalAlign: "top", textAlign: "center", width: 500 }}, React.createElement("h2", null, "Preview"), React.createElement(shapemaker_1.default, null)), React.createElement("td", {style: { verticalAlign: "bottom" }}, React.createElement(actionplayer_1.default, {store: store, actions: reducer_1.actions, defaultState: defaultState}))), React.createElement("tr", null, React.createElement("td", {colSpan: 3}, React.createElement("h2", {style: { margin: 5, textAlign: "center" }}, "Shapes"), React.createElement(shapeviewer_1.default, null)))))), document.getElementById("content"));
+	var defaultState = { nextShapeId: 0, width: 100, height: 100 };
+	var store = redux_1.createStore(reducer_1.myReducers);
+	store.subscribe(function () {
+	    console.log("store has been updated. Latest store state:", store.getState());
+	});
+	ReactDOM.render(React.createElement(react_redux_1.Provider, {store: store}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", {style: { width: 220 }}, React.createElement(counter_1.default, {field: "width", step: 10}), React.createElement(counter_1.default, {field: "height", step: 10}), React.createElement(colorpicker_1.ColorWrapper, null)), React.createElement("td", {style: { verticalAlign: "top", textAlign: "center", width: 500 }}, React.createElement("h2", null, "Preview"), React.createElement(shapemaker_1.default, null)), React.createElement("td", {style: { verticalAlign: "bottom" }}, React.createElement(actionplayer_1.default, {store: store, actions: reducer_1.actions, defaultState: defaultState}))), React.createElement("tr", null, React.createElement("td", {colSpan: 3}, React.createElement("h2", {style: { margin: 5, textAlign: "center" }}, "Shapes"), React.createElement(shapeviewer_1.default, null)))))), document.getElementById("content"));
 
 
 /***/ },
@@ -1608,12 +1595,13 @@
 	    }
 	    Counter.prototype.render = function () {
 	        var _this = this;
+	        console.log(this.props);
 	        var field = this.props.field, step = this.props.step || 1;
 	        return (React.createElement("div", null, React.createElement("p", null, React.createElement("label", null, field, ": "), React.createElement("b", null, this.props.counter)), React.createElement("button", {style: { width: 30, margin: 2 }, onClick: function (e) { return _this.props.decr(field, step); }}, "-"), React.createElement("button", {style: { width: 30, margin: 2 }, onClick: function (e) { return _this.props.incr(field, step); }}, "+")));
 	    };
 	    return Counter;
 	}(React.Component));
-	var mapStateToProps = function (state, props) { return ({ counter: state[props.field] || 0 }); };
+	var mapStateToProps = function (state, props) { return ({ counter: state.counter[props.field] || 0 }); };
 	var mapDispatchToProps = function (dispatch) { return ({
 	    incr: function (field, step) {
 	        dispatch({ type: 'COUNTER_CHANGE', field: field, by: step });
@@ -1722,8 +1710,8 @@
 	}(React.Component));
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = react_redux_1.connect(function (state) { return ({
-	    width: state.width, height: state.height, color: state.color,
-	    top: state.nextShapeId * 10, left: state.nextShapeId * 10
+	    width: state.counter.width, height: state.counter.height, color: state.color,
+	    top: state.shape.nextShapeId * 10, left: state.shape.nextShapeId * 10
 	}); }, function (dispatch) { return ({
 	    addShape: function (color, height, width, top, left) {
 	        dispatch({ type: 'SHAPE_ADD', height: height, width: width, color: color, top: top, left: left });
@@ -1745,6 +1733,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(/*! react */ 1);
+	var react_redux_1 = __webpack_require__(/*! react-redux */ 17);
 	var NumberPicker = (function (_super) {
 	    __extends(NumberPicker, _super);
 	    function NumberPicker() {
@@ -1768,6 +1757,7 @@
 	    }
 	    ColorPicker.prototype.render = function () {
 	        var _this = this;
+	        console.log(this.props);
 	        var color = this.props.color;
 	        var rgb = hexToRgb(color);
 	        var textColor = exports.isDark(color) ? "#fff" : "#000";
@@ -1812,6 +1802,17 @@
 	    return 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
 	};
 	exports.isDark = function (color) { return luminance(color) < 100; };
+	var ColorWrapperBase = (function (_super) {
+	    __extends(ColorWrapperBase, _super);
+	    function ColorWrapperBase() {
+	        _super.apply(this, arguments);
+	    }
+	    ColorWrapperBase.prototype.render = function () {
+	        return React.createElement(ColorPicker, {color: this.props.color, onChange: this.props.setColor});
+	    };
+	    return ColorWrapperBase;
+	}(React.Component));
+	exports.ColorWrapper = react_redux_1.connect(function (state) { return ({ color: state.color }); }, function (dispatch) { return ({ setColor: function (color) { return dispatch({ type: "COLOR_CHANGE", color: color }); } }); })(ColorWrapperBase);
 
 
 /***/ },
@@ -1838,6 +1839,7 @@
 	    }
 	    ShapeViewer.prototype.render = function () {
 	        var _this = this;
+	        console.log(this.props);
 	        return (React.createElement("div", {className: "noselect", style: { position: "relative", border: "solid 1px #ccc", width: 860, height: 500 }}, this.props.shapes.map(function (s) { return (React.createElement("div", {key: s.id, style: {
 	            position: "absolute", top: s.top, left: s.left, color: colorpicker_1.isDark(s.color) ? '#fff' : '#000',
 	            background: s.color, width: s.width, height: s.height,
@@ -1860,7 +1862,7 @@
 	    return ShapeViewer;
 	}(React.Component));
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = react_redux_1.connect(function (state) { return ({ shapes: state.shapes }); }, function (dispatch) { return ({
+	exports.default = react_redux_1.connect(function (state) { return ({ shapes: state.shape.shapes }); }, function (dispatch) { return ({
 	    updateShape: function (id, top, left) { return dispatch({ type: "SHAPE_CHANGE", id: id, top: top, left: left }); }
 	}); })(ShapeViewer);
 
@@ -1907,7 +1909,7 @@
 	var redux_1 = __webpack_require__(/*! redux */ 6);
 	__webpack_require__(/*! ./objectassign */ 38);
 	var changeCounter = function (state, action) {
-	    if (state === void 0) { state = {}; }
+	    if (state === void 0) { state = { width: 100, height: 100 }; }
 	    switch (action.type) {
 	        case "COUNTER_CHANGE":
 	            return Object.assign({}, state, (_a = {}, _a[action.field] = state[action.field] + action.by, _a));
@@ -1917,16 +1919,16 @@
 	    var _a;
 	};
 	var changeColor = function (state, action) {
-	    if (state === void 0) { state = {}; }
+	    if (state === void 0) { state = "#000000"; }
 	    switch (action.type) {
 	        case "COLOR_CHANGE":
-	            return Object.assign({}, state, { color: action.color });
+	            return action.color;
 	        default:
 	            return state;
 	    }
 	};
 	var changeShape = function (state, action) {
-	    if (state === void 0) { state = {}; }
+	    if (state === void 0) { state = { nextShapeId: 0, shapes: [] }; }
 	    var shape;
 	    switch (action.type) {
 	        case "SHAPE_ADD":

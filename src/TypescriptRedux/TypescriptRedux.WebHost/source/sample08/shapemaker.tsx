@@ -48,8 +48,8 @@ class ShapeMaker extends React.Component<any, any> {
 
 export default connect(
     (state) => ({
-        width: state.width, height: state.height, color: state.color,
-        top: state.nextShapeId * 10, left: state.nextShapeId * 10
+        width: state.counter.width, height: state.counter.height, color: state.color,
+        top: state.shape.nextShapeId * 10, left: state.shape.nextShapeId * 10
     }),
     (dispatch) => ({
         addShape: (color, height, width, top, left) => {

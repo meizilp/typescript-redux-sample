@@ -8,6 +8,7 @@ class ShapeViewer extends React.Component<any, any> {
         this.state = { isDragging: false };
     }
     render() {
+        console.log(this.props);
         return (
             <div className="noselect"
                 style={{ position: "relative", border: "solid 1px #ccc", width: 860, height: 500 }}>
@@ -43,7 +44,7 @@ class ShapeViewer extends React.Component<any, any> {
 }
 
 export default connect(
-    (state) => ({ shapes: state.shapes }),
+    (state) => ({ shapes: state.shape.shapes }),
     (dispatch) => ({
         updateShape: (id, top, left) => dispatch({ type: "SHAPE_CHANGE", id, top, left })
     })
