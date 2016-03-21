@@ -60,12 +60,10 @@
 	var colorpicker_1 = __webpack_require__(/*! ./colorpicker */ 36);
 	__webpack_require__(/*! ./objectassign */ 38);
 	var reducer_1 = __webpack_require__(/*! ./reducer */ 39);
-	var defaultState = { nextShapeId: 0, width: 100, height: 100 };
+	var defaultState = { nextShapeId: 0, shapes: [] };
 	var store = redux_1.createStore(reducer_1.myReducers);
-	store.subscribe(function () {
-	    console.log("store has been updated. Latest store state:", store.getState());
-	});
-	ReactDOM.render(React.createElement(react_redux_1.Provider, {store: store}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", {style: { width: 220 }}, React.createElement(counter_1.default, {field: "width", step: 10}), React.createElement(counter_1.default, {field: "height", step: 10}), React.createElement(colorpicker_1.ColorWrapper, null)), React.createElement("td", {style: { verticalAlign: "top", textAlign: "center", width: 500 }}, React.createElement("h2", null, "Preview"), React.createElement(shapemaker_1.default, null)), React.createElement("td", {style: { verticalAlign: "bottom" }}, React.createElement(actionplayer_1.default, {store: store, actions: reducer_1.actions, defaultState: defaultState}))), React.createElement("tr", null, React.createElement("td", {colSpan: 3}, React.createElement("h2", {style: { margin: 5, textAlign: "center" }}, "Shapes"), React.createElement(shapeviewer_1.default, null)))))), document.getElementById("content"));
+	store.subscribe(function () { console.log(store.getState()); });
+	ReactDOM.render(React.createElement(react_redux_1.Provider, {store: store}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", {style: { width: 220 }}, React.createElement(counter_1.default, {field: "width", step: 10}), React.createElement(counter_1.default, {field: "height", step: 10}), React.createElement(colorpicker_1.ColorWrapper, null)), React.createElement("td", {style: { verticalAlign: "top", textAlign: "center", width: 500 }}, React.createElement("h2", null, "Preview"), React.createElement(shapemaker_1.default, null)), React.createElement("td", {style: { verticalAlign: "bottom" }}, React.createElement(actionplayer_1.default, {actions: reducer_1.actions, defaultState: defaultState}))), React.createElement("tr", null, React.createElement("td", {colSpan: 3}, React.createElement("h2", {style: { margin: 5, textAlign: "center" }}, "Shapes"), React.createElement(shapeviewer_1.default, null)))))), document.getElementById("content"));
 
 
 /***/ },
@@ -1595,7 +1593,6 @@
 	    }
 	    Counter.prototype.render = function () {
 	        var _this = this;
-	        console.log(this.props);
 	        var field = this.props.field, step = this.props.step || 1;
 	        return (React.createElement("div", null, React.createElement("p", null, React.createElement("label", null, field, ": "), React.createElement("b", null, this.props.counter)), React.createElement("button", {style: { width: 30, margin: 2 }, onClick: function (e) { return _this.props.decr(field, step); }}, "-"), React.createElement("button", {style: { width: 30, margin: 2 }, onClick: function (e) { return _this.props.incr(field, step); }}, "+")));
 	    };
@@ -1635,7 +1632,7 @@
 	    }
 	    ActionPlayer.prototype.componentDidMount = function () {
 	        var _this = this;
-	        this.unsubscribe = this.props.store.subscribe(function () { return _this.forceUpdate(); });
+	        this.unsubscribe = this.context.store.subscribe(function () { return _this.forceUpdate(); });
 	    };
 	    ActionPlayer.prototype.componentWillUnmount = function () {
 	        this.unsubscribe();
@@ -1645,7 +1642,7 @@
 	        return (React.createElement("div", null, React.createElement("button", {onClick: function (e) { return _this.replayActions(); }}, "replay"), React.createElement("p", null, React.createElement("b", null, this.props.actions.length), " actions"), React.createElement("button", {onClick: function (e) { return _this.undoAction(); }}, "undo"), " ", React.createElement("span", null), React.createElement("button", {onClick: function (e) { return _this.resetState(); }}, "clear")));
 	    };
 	    ActionPlayer.prototype.resetState = function () {
-	        this.props.store.dispatch({ type: "LOAD", state: this.props.defaultState });
+	        this.context.store.dispatch({ type: "LOAD", state: this.props.defaultState });
 	        this.props.actions.length = 0;
 	    };
 	    ActionPlayer.prototype.replayActions = function () {
@@ -1653,14 +1650,17 @@
 	        var snapshot = this.props.actions.slice(0);
 	        this.resetState();
 	        snapshot.forEach(function (action, i) {
-	            return setTimeout(function () { return _this.props.store.dispatch(action); }, 10 * i);
+	            return setTimeout(function () { return _this.context.store.dispatch(action); }, 10 * i);
 	        });
 	    };
 	    ActionPlayer.prototype.undoAction = function () {
 	        var _this = this;
 	        var snapshot = this.props.actions.slice(0, this.props.actions.length - 1);
 	        this.resetState();
-	        snapshot.forEach(function (action) { return _this.props.store.dispatch(action); });
+	        snapshot.forEach(function (action) { return _this.context.store.dispatch(action); });
+	    };
+	    ActionPlayer.contextTypes = {
+	        store: React.PropTypes.object
 	    };
 	    return ActionPlayer;
 	}(React.Component));
@@ -1757,7 +1757,6 @@
 	    }
 	    ColorPicker.prototype.render = function () {
 	        var _this = this;
-	        console.log(this.props);
 	        var color = this.props.color;
 	        var rgb = hexToRgb(color);
 	        var textColor = exports.isDark(color) ? "#fff" : "#000";
@@ -1839,7 +1838,6 @@
 	    }
 	    ShapeViewer.prototype.render = function () {
 	        var _this = this;
-	        console.log(this.props);
 	        return (React.createElement("div", {className: "noselect", style: { position: "relative", border: "solid 1px #ccc", width: 860, height: 500 }}, this.props.shapes.map(function (s) { return (React.createElement("div", {key: s.id, style: {
 	            position: "absolute", top: s.top, left: s.left, color: colorpicker_1.isDark(s.color) ? '#fff' : '#000',
 	            background: s.color, width: s.width, height: s.height,
@@ -1927,6 +1925,7 @@
 	            return state;
 	    }
 	};
+	exports.actions = [];
 	var changeShape = function (state, action) {
 	    if (state === void 0) { state = { nextShapeId: 0, shapes: [] }; }
 	    var shape;
@@ -1939,26 +1938,25 @@
 	        case "SHAPE_CHANGE":
 	            shape = Object.assign({}, state.shapes.filter(function (x) { return x.id === action.id; })[0], { top: action.top, left: action.left });
 	            return Object.assign({}, state, { shapes: state.shapes.filter(function (x) { return x.id !== action.id; }).concat([shape]) });
-	        default:
-	            return state;
-	    }
-	};
-	exports.actions = [];
-	var defaultReducer = function (state, action) {
-	    if (state === void 0) { state = {}; }
-	    exports.actions.push(action);
-	    switch (action.type) {
 	        case "LOAD":
 	            return action.state;
 	        default:
 	            return state;
 	    }
 	};
+	var historyLoad = function (state, action) {
+	    if (state === void 0) { state = {}; }
+	    console.log(action.type);
+	    if (action.type !== "LOAD" && !/^@@redux/.test(action.type)) {
+	        exports.actions.push(action);
+	    }
+	    return state;
+	};
 	exports.myReducers = redux_1.combineReducers({
 	    counter: changeCounter,
 	    color: changeColor,
 	    shape: changeShape,
-	    default: defaultReducer
+	    history: historyLoad
 	});
 
 

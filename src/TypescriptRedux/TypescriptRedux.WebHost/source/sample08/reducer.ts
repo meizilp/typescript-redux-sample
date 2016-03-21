@@ -41,6 +41,7 @@ const changeColor = (state:string = "#000000" ,action): any => {
             return state;
     }
 };
+export var actions = [];
 
 const changeShape = (state: any = { nextShapeId:0,shapes:[]}, action): any => {
     let shape;
@@ -55,24 +56,24 @@ const changeShape = (state: any = { nextShapeId:0,shapes:[]}, action): any => {
                 { top: action.top, left: action.left });
             return Object.assign({}, state,
                 { shapes: [...state.shapes.filter(x => x.id !== action.id), shape] });
+        case "LOAD":
+            return action.state;
         default:
             return state;
     }
 };
-export var actions = [];
-const defaultReducer = (state: any = {}, action): any => {
+
+const historyLoad = (state:any={}, action) => {
+    console.log(action.type);
+    if (action.type !== "LOAD" && ! /^@@redux/.test(action.type) ) {
         actions.push(action);
-        switch (action.type) {
-            case "LOAD":
-                return action.state;
-            default:
-                return state;
-        }
-};
+    }
+    return state;
+}
 
 export const myReducers = combineReducers({
     counter: changeCounter,
     color: changeColor,
     shape: changeShape,
-    default: defaultReducer
+    history: historyLoad
 });

@@ -1,173 +1,199 @@
-# TypeScript Redux
 
-This guide goes through setting up, running and exploring the ultimate JavaScript Stack du jour:
 
-  - [TypeScript](http://www.typescriptlang.org/) - Superset of JavaScript with optional typing, advanced language features and down-level ES5 support
-  - [typings](https://github.com/typings/typings) - Package manager to search and install TypeScript definition files
-  - [React](https://facebook.github.io/react/) - Simple, high-performance JavaScript UI Framework utilizing a Virtual DOM and Reactive Data flows
-  - [Redux](https://github.com/rackt/redux) - Predictable state manager for JavaScript Apps
+注：本文的原始资料和示例来自 [ServiceStackApps/typescript-redux](https://github.com/ServiceStackApps/typescript-redux) ,根据我的实际情况，做了一些调整。感谢原作者的无私分享
+
+本文通过设置，运行和探索Javascript一些高级的技术栈：
+
+  - [TypeScript](http://www.typescriptlang.org/) - 具备类型的Javascript超集, 提供一些高级别的语法特性（注：真正的面向对象等）和部分ES5的支持
+  - [typings](https://github.com/typings/typings) - 用于搜索和安装TypeScript语法定义的包管理器
+  - [React](https://facebook.github.io/react/) - 简单，高性能的javascript UI层框架，利用虚拟DOM和应答数据流 
+  - [Redux](https://github.com/rackt/redux) - javascript 应用程序的状态管理框架，非常适合和React搭配使用
   
 Providing a great base for the development of large-scale, JavaScript Apps that's further enhanced by a great 
 development experience within Visual Studio.
+提供开发大型javascript应用程序强大的基础，并改进在Visual Studio中的开发体验（注：事实上，并非一定在Visual Studio中，其他的编辑器也是可以的）
 
-## Install TypeScript
+## 安装 TypeScript
 
-If you haven't already download and install the latest version from 
-[typescriptlang.org](http://www.typescriptlang.org). Visual Studio users can use these direct links:
+如果你还没有从[typescriptlang.org](http://www.typescriptlang.org)下载安装最新版本的Typescript。Visual Studio的用户可以直接使用下面的链接快速安装：
 
  - [VS.NET 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)
  - [VS.NET 2013](https://www.microsoft.com/en-us/download/details.aspx?id=48739)
 
-> This guide assumes you've installed TypeScript v1.8 or higher
+> 本文已经默认你已经安装了TypeScript v1.8 或更高的版本
 
-### [VS.NET 2015 Install Package](https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74)
+（注：原文中使用JSPM作为nodejs的包管理器，本文中我仍然使用npm来代替，原文中使用system作为模块加载器，本文中用webpack代替）
 
-Visual Studio 2015 also has a 
-[Package Installer](https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74) 
-add-on providing an Integrated UI for installing npm and JSPM packages as well as typings Type Definitions:
+## 创建 一个 ASP.NET Web 项目（如果你的编辑器不是VS，那就直接跳过到配置TypeScript）
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/vs-install-jspm-package.png)](https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74) 
+虽然安装了 TypeScript VS.NET 扩展提供了，一个新的 **HTML Application with TypeScript** 项目模板，但是你最好还是通过创建一个 **Empty ASP.NET Web Application** 项目并配置项目支持Typescript -- 这比把它从Typescript转换成 ASP.NET Web项目要方便的多。.
 
-It's autocomplete feature is particularly useful for quickly finding packages you don't know the exact name of:
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/01-empty-web-project.png)
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/vs-jspm-autocomplete.png)](https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74) 
+在接下来的界面 选择 **Empty** 模板来创建一个空模板:
 
-Although for this guide we'll install JavaScript packages using the command-line which offers better visibility 
-of how external packages integrates with your project and all fits together.
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/02-empty-web-template.png)
 
-## Create an Empty ASP.NET Web Project
+### 启用 TypeScript
+在项目的右键菜单`Add > TypeScript File`中添加一个 **TypeScript File** 文件就会自动配置的你Web项目 `.csproj` 文件，加上一些启用TypeScript 支持必须的导入项：
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/03-add-typescript-file.png)
 
-Whilst installing the TypeScript VS.NET Extension provides a new **HTML Application with TypeScript** project
-template, you're better off starting from an **Empty ASP.NET Web Application** project then configuring 
-it with TypeScript - saving the time to convert it into an ASP.NET Web Application later.
+配置的时候会弹出对话框:
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/01-empty-web-project.png)
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/04-typescript-confirmation-dialog.png)
 
-Choose the **Empty** template for a clean Web Application free of unnecessary bloat:
+点击 **No** 来跳过使用Nuget对话框来安装Typing 定义文件，因为我们后面会使用[typings Package Manager](https://github.com/typings/typings) 来代替它安装定义文件.
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/02-empty-web-template.png)
+### 配置 TypeScript
 
-### Enable TypeScript
+在项目中第一激活TypeScript需要配置一些选项。VS.NET 2015 可以通过项目属性中的`Typescript Build`配置节来配置TypeScript的编译选项，这些信息将直接配置到VS的**.csproj**项目文件中，如下图所示：
+![TypeScript Properties Page]https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/05-configure-typescript-vs.png)
 
-Adding a **TypeScript File** from the `Add > TypeScript File` context menu will automatically configure your
-Web Application Project `.csproj` with the necessary imports to enable TypeScript support:
+不过我们更倾向于使用`tsconfig.json`的一个文本文件来配置这些选项，而且这个配置文件可以更好的适配到其他的编辑器/IDE中，更利于知识的分享，减少一些不必要的问题。
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/03-add-typescript-file.png)
+在项目上右键`Add > New Item` 在打开的对话框中搜索 **typescript**，并选择 **TypeScript JSON Configuration File**  文件模板 来添加`tsconfig.json` 到你的项目中：
 
-As confirmed by the subsequent prompt:
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/04-typescript-confirmation-dialog.png)
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/05-add-tsconfig.png)
 
-Click **No** to skip opening a NuGet dialog as you'll instead be sourcing your TypeScript definitions from the 
-[typings Package Manager](https://github.com/typings/typings) we'll install later.
+这会添加一个基础的`tsconfig.json`配置文件到你的项目中，这些配置会替换掉你之前在`.csproj` 项目文件中配置的变量
 
-### Configure TypeScript
 
-Once TypeScript is enabled you want to configure it within your project. Prior to TypeScript 1.8 on VS.NET 2015
-the configuration properties for the TypeScript Compiler was embedded in the VS **.csproj** file which you 
-could manage from the [TypeScript Properties Page](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/05-configure-typescript-vs.png)
-in **Project Properties**.
+### tsconfig for webpack, React and JSX
 
-However our preference is to instead manage the TypeScript options in a plain-text `tsconfig.json` file 
-which offers more flexibility and matches how every other IDE/text-editor maintains TypeScript configuration
-leading to greater knowledge sharing and less issues. 
+为了更快的进入状态，你可以复制下面的配置信息并替换你的`tsconfig.json` 文件内容：
 
-To add `tsconfig.json` to your project go to `Add > New Item` and search for **typescript** in the search 
-dialog, then select **TypeScript JSON Configuration File** item template: 
-
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/05-add-tsconfig.png)
-
-This will add a basic `tsconfig.json` configuration file to your project which VS.NET will use instead of
-.csproj Project variables. 
-
-### tsconfig for JSPM, React and JSX
-
-To get started quickly copy + replace the contents of `tsconfig.json` with the configuration below:
- 
 ```json
 {
-  "compileOnSave":  true,
+  
   "compilerOptions": {
     "noImplicitAny": false,
     "noEmitOnError": true,
-    "removeComments": false,
+    "removeComments": false, 
+    "module": "commonjs",  
     "sourceMap": true,
-    "target": "es5",
-    "module": "system",
+    "target": "es5",   
     "jsx": "react",
     "experimentalDecorators": true
   },
   "exclude": [
     "typings",
-    "node_modules",
-    "jspm_packages",
+    "node_modules",   
     "wwwroot"
   ]
 }
+
 ```
 
-Changes from the default basic `tsconfig.json` template include:
+和默认的 `tsconfig.json` 有所不同的是 :
 
- - `compileOnSave:true` - to generate TypeScript files on save
- - `target:es5` - to target ES5 JavaScript
- - `module:system` - so TypeScript modules are converted into [SystemJS Modules](https://github.com/systemjs/systemjs)
- - `jsx:react` - so JSX in `.tsx` files are transpiled into React's JavaScript syntax
- - `experimentalDecorators:true` - to enable proposed ES7 decorators support (used later)
- - `exclude:jspm_packages` - to ignore any TypeScript source files in JSPM packages folder
+ - `target:es5` - 将编译的javascript设置成es5版本
+ - `module:commonjs` - 使用commonjs作为模块加载器（事实上无所谓，我们最终使用webpack打包）
+ - `jsx:react` - 将 `.tsx` 文件转换成 React的 JavaScript 语法，而不是jsx语法。
+ - `experimentalDecorators:true` -启用ES7装饰器语法支持，事实上这个语法规则还没有确定，所以本文中弃用了
+ - `exclude:node_modules` - 排除一些文件夹，不要去编译这些文件夹下面的typescript代码。
 
-> [VS 2013 doesn't support tsconfig.json](https://github.com/Microsoft/TypeScript/issues/6782#issuecomment-187820198)
-so you'll need to use .csproj configuration managed from TypeScript Project properties page
+> [VS 2013 不支持 tsconfig.json](https://github.com/Microsoft/TypeScript/issues/6782#issuecomment-187820198)
+但是不打紧，我们最终使用webpack打包代码，而不是vs本身，所以。。你懂的
 
-## Install JSPM
+## 安装 webpack
 
-To take full advantage of the modularity functionality available in ES6 and TypeScript we'll also want to use
-a client JavaScript package manager which is able to integrate with TypeScript's module support. Currently the 
-[preferred option for this is JSPM](http://www.symbiotics.co.za/blog/knowledge-share-2/post/is-bower-dead-what-is-jspm-npm-for-client-side-92)
-whose SystemJS module format is natively supported by TypeScript.
+Webpack 是德国开发者 Tobias Koppers 开发的模块加载器，它和传统的commonjs和requirejs的不同之处，在于，它在运行时是不需要它本身的，js和其他一些资源文件（css，图片等）在运行之前就已经并合并到了一起，并且它的很多插件让你可以在做很多预编译的事情（比如本文中的将typescript编译成es5版本的javascript）。
 
-To install JSPM we need to head over to the command line, the easiest way is to hold down `Shift` whilst 
-right-clicking on your project folder and clicking **Open command window here**
+事实上，我并非对它很熟悉，也只是参与了很多的资料，：） 你可以从下面的这些链接获取到一些有用的信息：
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/06-open-command-prompt.png)
+- [官网][1]
+- [webpack入门指南][2]    
+- [Typescript 中文手册中的相关介绍][3]
 
-With the raw power of the command-line at our finger tips, use [npm](https://www.npmjs.com/) to install JSPM:
- 
-    C:\proj> npm install jspm -g
+安装 webpack本身非常方便，只要使用npm命令全局安装就可以了：
 
-Once installed you'll want to initialize JSPM and create a config file by running:
- 
-    C:\proj> jspm init
-
-and run through a few questions that will be used to create JSPM `config.js` file with:
-
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/07-jspm-init.png)
-
-The only question you **won't** want to go with the defaults on and enter **no** for is:
-
-> Do you wish to use a transpiler? [yes]:**no**
-
-As we'll instead be using the TypeScript support in Visual Studio to do our transpiling for us.
+    C:\proj> npm install webpack -g
     
-### Install React
+等待执行完成即可。
 
-With JSPM all setup we can go shopping for JS packages - the first one we'll need is React:
+### 初始化项目
+在项目目录下执行 npm init 为项目创建一个package.json文件，以便我们后续安装一些相关的包到本地
 
-    C:\proj> jspm install react
+    C:\proj> npm init
+    
+### 配置webpack
+使用webpack 打包typescript代码，并编译成javascript需要安装一些插件，来安装一下:
 
-Since v0.14 the React support for the DOM is split into a separate package which we'll need as well:
+    C:\proj> npm install ts-loader source-map-loader --save-dev
 
-    C:\proj> jspm install react-dom
+初始化项目的文件夹结构，之所以在这里说，是因为我们下面的配置文件会使用到对应的目录地址，建成后的目录结构如图所示：
 
-### Install typings - Manager for TypeScript definitions
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/06-folder-list.png)
 
-To enable auto-completion and type-checking support in TypeScript we'll also want to pull down the 
-Type Definitions for our 3rd Party JavaScript libraries. The best way to do this is to install 
-[typings](https://github.com/typings/typings) 
-which we also install from npm:
+其中
+`source` 目录用于存放Typescript源代码文件(**本例中为了路径引用方便，我将HTML文件也放到里该目录下，实际项目中不用这么做**)
+`wwwroot/js` 用于存放生成js文件和引用的第三方类库（jquery,zepto等等）
+本例中，我将reactjs的js文件放到`wwwroot/js/lib`目录中，并在页面上单独引用。
+
+完成后，在项目目录添加一个`webpack.config.js`文件，该文件是webpake的配置文件，将以下代码复制到文件中：
+```json
+module.exports = {
+    entry: "./source/index.ts",
+    output: {
+        filename: "./wwwroot/js/[name].js",
+    },
+    // Enable sourcemaps for debugging webpack's output.
+    devtool: "source-map",
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    },
+
+    module: {
+        loaders: [
+            // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
+            { test: /\.tsx?$/, loader: "ts-loader" }
+        ],
+
+        preLoaders: [
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            { test: /\.js$/, loader: "source-map-loader" }
+        ]
+    },
+    // When importing a module whose path matches one of the following, just
+    // assume a corresponding global variable exists and use that instead.
+    // This is important because it allows us to avoid bundling all of our
+    // dependencies, which allows browsers to cache those libraries between builds.
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    }
+};
+
+```
+
+关于webpack.config.js中的详细说明，可参考[官方的说明][4]，其中`externals`配置节是用于排除，单独引用的reactjs类库，不打包进生成的文件，`entry`入口这里是示例，在下面的章节会替换成实际的内容。
+
+### 安装 React
+
+通过npm 安装 react到本地，你可以可以手动到官网下载最新的版本，并复制到`wwwroot/js/lib` 目录下:
+
+    C:\proj> npm install react --save
+
+从 v0.14 开始 React 将dom操作分离到一个单独的包中，我们也来安装一下:
+
+    C:\proj> npm install react-dom --save
+    
+
+手动将react库 从`node_modules` 复制到 `wwwroot/js/lib` 目录中，如下图所示：
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/06-folder-react.png)
+
+我们实际使用到的文件是`react.min.js`和`react-dom.min.js` 。
+
+### 安装 typings -  TypeScript definitions的管理器
+
+为了能够开启Typescript的自动完成和类型检查支持，我们需要下载一些第三方类库的类型定义文件，最好的方式是通过安装[typings](https://github.com/typings/typings) 
+可以通过npm来全局安装它:
 
     C:\proj> npm install typings -g
 
-We can now use `typings` to fetch the TypeScript Type Definitions we need.
+现在我们可以通过 `typings` 命令来安装我们需要的TypeScript 类型定义文件了。
 
 #### Install React Type Definitions
 
@@ -177,27 +203,25 @@ We can now use `typings` to fetch the TypeScript Type Definitions we need.
 
     C:\proj> typings install react-dom --ambient --save
 
-The `--ambient` flag instructs **typings** to look in ambient `.d.ts` TypeScript definitions in 
-[DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) repository whilst the 
-`--save` flag adds a reference to the common `typings/browser.d.ts` file:
+The `--ambient` 标志是让 **typings** 在社区版本中查找 `.d.ts` TypeScript 定义文件，它们都在[DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)  
+`--save` 标志是让这些安装的信息保存到`typings.json`配置文件中
+
+安装完成后你打开文件 `typings/browser.d.ts` 可以看到:
 
 ```typescript
 /// <reference path="main\ambient\react-dom\react-dom.d.ts" />
 /// <reference path="main\ambient\react\react.d.ts" />
 ```
 
-This is convenient as it means we only need to reference the one file in our source code to import the 
-Type Definitions for all our dependencies:
+在其他文件中使用这些类型定义文件，只需要引用`typings/browser.d.ts`文件即可：
 
 ```typescript
 /// <reference path='../typings/browser.d.ts'/>
 ```
 
-## Start TypeScript'ing
+## 开始 用 TypeScript 编码了
 
-Eureka! if you've reached this far we finally have a working development environment and can start putting 
-TypeScript and React to work for us. Let's start by creating a `src/` folder where we'll keep all our 
-TypeScript source code. We'll start with the simplest of React examples:
+太棒了! 到这里我们终于有了一个可以工作的Typescript开发环境的，可以开始编写TypeScript 和 React代码，并看看它们是否正常工作，接下来的代码按照我们之前的约定，在`./source`目录添加你的代码，好了，我们从一个最简单的React 示例开始吧:
 
 ## [Example 1 - HelloWorld](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example01)
 
@@ -2132,3 +2156,9 @@ effortlessly packaging, bundling and deploying your production-optimized App
 We hope you've found this guide useful and it helps spur some ideas of what you can create with these simple 
 and powerful technologies in your next App. We welcome any enhancements via pull-requests, otherwise feel free
 to drop feedback to [@demisbellot](https://twitter.com/demisbellot). 
+
+
+  [1]: https://webpack.github.io
+  [2]: https://segmentfault.com/a/1190000002551952
+  [3]: https://zhongsp.gitbooks.io/typescript-handbook/content/doc/handbook/quick-start/react-webpack.html
+  [4]: http://webpack.github.io/docs/configuration.html

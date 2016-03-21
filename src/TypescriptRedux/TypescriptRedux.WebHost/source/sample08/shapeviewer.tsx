@@ -8,7 +8,6 @@ class ShapeViewer extends React.Component<any, any> {
         this.state = { isDragging: false };
     }
     render() {
-        console.log(this.props);
         return (
             <div className="noselect"
                 style={{ position: "relative", border: "solid 1px #ccc", width: 860, height: 500 }}>

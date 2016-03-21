@@ -15,13 +15,11 @@ import "./objectassign";
 
 import {myReducers, actions} from "./reducer";
 
-var defaultState = { nextShapeId: 0, width: 100, height: 100 };
+var defaultState = { nextShapeId: 0 ,shapes:[] };
 
 let store = createStore(myReducers);
 
-store.subscribe(() => {
-    console.log("store has been updated. Latest store state:", store.getState());
-});
+store.subscribe(() => { console.log(store.getState()) });
 ReactDOM.render(
     <Provider store={store}>
         <table>
@@ -37,7 +35,7 @@ ReactDOM.render(
                         <ShapeMaker />
                     </td>
                     <td style={{ verticalAlign: "bottom" }}>
-                        <ActionPlayer store={store} actions={actions} defaultState={defaultState} />
+                        <ActionPlayer actions={actions} defaultState={defaultState} />
                     </td>
                 </tr>
                 <tr>

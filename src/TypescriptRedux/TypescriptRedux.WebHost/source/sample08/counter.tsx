@@ -14,7 +14,6 @@ interface ICounterProps {
 
 class Counter extends React.Component<any, any> {
     render() {
-        console.log(this.props);
         var field = this.props.field, step = this.props.step || 1;
         return (
             <div>

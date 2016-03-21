@@ -20,7 +20,6 @@ export class NumberPicker extends React.Component<any, any> {
 
 export class ColorPicker extends React.Component<any, any> {
     render() {
-        console.log(this.props);
         const color = this.props.color;
         const rgb = hexToRgb(color);
         const textColor = isDark(color) ? "#fff" : "#000";
