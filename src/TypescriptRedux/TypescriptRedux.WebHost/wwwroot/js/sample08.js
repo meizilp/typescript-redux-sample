@@ -1911,6 +1911,8 @@
 	    switch (action.type) {
 	        case "COUNTER_CHANGE":
 	            return Object.assign({}, state, (_a = {}, _a[action.field] = state[action.field] + action.by, _a));
+	        case "LOAD":
+	            return { width: 100, height: 100 };
 	        default:
 	            return state;
 	    }
@@ -1921,6 +1923,8 @@
 	    switch (action.type) {
 	        case "COLOR_CHANGE":
 	            return action.color;
+	        case "LOAD":
+	            return "#000000";
 	        default:
 	            return state;
 	    }

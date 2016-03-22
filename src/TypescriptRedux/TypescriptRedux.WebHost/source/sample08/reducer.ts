@@ -1,4 +1,4 @@
-﻿import { createStore, combineReducers } from "redux";
+﻿import { combineReducers } from "redux";
 
 
 import "./objectassign";
@@ -29,6 +29,8 @@ const changeCounter = (state:any ={width:100,height:100}, action): any => {
     switch (action.type) {
         case "COUNTER_CHANGE":
             return Object.assign({}, state, { [action.field]: state[action.field] + action.by });
+        case "LOAD":
+            return { width:100,height:100 };
         default:
             return state;
     }
@@ -37,6 +39,8 @@ const changeColor = (state:string = "#000000" ,action): any => {
     switch (action.type) {
         case "COLOR_CHANGE":
             return action.color;
+        case "LOAD":
+            return "#000000";
         default:
             return state;
     }
