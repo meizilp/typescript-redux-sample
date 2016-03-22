@@ -1,6 +1,5 @@
 
-
-注：本文的原始资料和示例来自 [ServiceStackApps/typescript-redux](https://github.com/ServiceStackApps/typescript-redux) ,根据我的实际情况，做了一些调整。感谢原作者的无私分享
+注：本文的原始资料和示例来自 [ServiceStackApps/typescript-redux](https://github.com/ServiceStackApps/typescript-redux) ,根据我的实际情况，做了一些调整，详见文内说明，感谢原作者的无私分享。
 
 本文通过设置，运行和探索Javascript一些高级的技术栈：
 
@@ -24,7 +23,7 @@ development experience within Visual Studio.
 
 （注：原文中使用JSPM作为nodejs的包管理器，本文中我仍然使用npm来代替，原文中使用system作为模块加载器，本文中用webpack代替）
 
-## 创建 一个 ASP.NET Web 项目（如果你的编辑器不是VS，那就直接跳过到配置TypeScript）
+## 创建 一个 ASP.NET Web 项目（如果你的编辑器不是VS.NET，那就直接跳过到配置TypeScript）
 
 虽然安装了 TypeScript VS.NET 扩展提供了，一个新的 **HTML Application with TypeScript** 项目模板，但是你最好还是通过创建一个 **Empty ASP.NET Web Application** 项目并配置项目支持Typescript -- 这比把它从Typescript转换成 ASP.NET Web项目要方便的多。.
 
@@ -181,7 +180,8 @@ module.exports = {
     C:\proj> npm install react-dom --save
     
 
-手动将react库 从`node_modules` 复制到 `wwwroot/js/lib` 目录中，如下图所示：
+手动将react库 从`node_modules` 复制到 `wwwroot/js/lib` 目录中，如下图所示：  
+
 ![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/06-folder-react.png)
 
 我们实际使用到的文件是`react.min.js`和`react-dom.min.js` 。
@@ -223,268 +223,262 @@ The `--ambient` 标志是让 **typings** 在社区版本中查找 `.d.ts` TypeSc
 
 太棒了! 到这里我们终于有了一个可以工作的Typescript开发环境的，可以开始编写TypeScript 和 React代码，并看看它们是否正常工作，接下来的代码按照我们之前的约定，在`./source`目录添加你的代码，好了，我们从一个最简单的React 示例开始吧:
 
-## [Example 1 - HelloWorld](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example01)
+## [Example 1 - HelloWorld](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/sample01)
 
-In this first example we're aiming to create the simplest working App. 
-Create an `example01/` folder and add our first TypeScript file: 
+在第一个示例中，我们要编写一个最简单能正常运行的应用，气死就是 `Helloworld`
+在 `source` 目录下新建 `example01/` 文件夹，并添加第一个 TypeScript 文件 : 
 
-#### [app.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example01/app.tsx)
+#### [app.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/sample01/app.tsx)
 
 ```typescript
 /// <reference path='../../typings/browser.d.ts'/>
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 class HelloWorld extends React.Component<any, any> {
     render() {
         return <div>Hello, World!</div>;
     }
 }
-
 ReactDOM.render(<HelloWorld/>, document.getElementById("content"));
 ```
+这里我们来一起看一看，这个代码是怎么运行的：
 
-I'll walk through this as there's a few things going on here, the first line:
+先来看看第一行代码：
 
 ```typescript
 /// <reference path='../../typings/browser.d.ts'/>
 ```
 
-Uses a [Reference Tag](http://blogs.msdn.com/b/webdev/archive/2007/11/06/jscript-intellisense-a-reference-for-the-reference-tag.aspx)
-to reference all the [Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped) Type Definitions
-installed by **typings**. 
+使用了 [Reference 标签](http://blogs.msdn.com/b/webdev/archive/2007/11/06/jscript-intellisense-a-reference-for-the-reference-tag.aspx)来引用所有的之前通过**typings**安装的 [Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped)  文件
 
-The import statements:
+看一下 `import` 语句:
 
 ```typescript
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 ```
-
-Imports the JavaScript modules installed by **jspm**. The `*` wildcard above imports the entire module, 
-an alternative syntax is to import only what you need:
+导入之前使用 `npm` 命令安装的Javascript模块 （注：Typescript中可以使用第三方Javascript库，但是必须提供类型定义文件，没有的话需要写一个）, `*` 号表示导入整个模块，如果你希望只导入一个模块的话 ，你可以这么写：
 
 ```typescript
 import { render } from 'react-dom';
 ```
 
-The exception to this is inside `.tsx` where it requires **React** to be imported with a wildcard import 
-otherwise JSX fragments will result in build errors:
+唯一的例外是在 `.tsx`文件中，必须导入 **React**模块，否则在使用JSX代码块时会发生编译错误：
 
     return <div>Hello, World!</div>; //compile error: Cannot find name React
 
-To create a React component we inherit from React's `Component<TProps,TState>` base class:
+下面的代码是创建一个组件（component）继承至 React的`Component<TProps,TState>`基类：
 
 ```typescript
 class HelloWorld extends React.Component<any, any> {
 ```
-
+当我们的组件（Components） 不包含任何特定的属性（ property）和状态（state）时，我们可以使用 `any` 类型来忽略一些特殊的类型
 When Components doesn't have any properties or state they can use `any` to ignore specifying types.
 
-As we've enabled JSX support in our TypeScript configuration we can use JSX inside our **.tsx** files:
+我们之前在TypeScript配置中已经启用了jsx语法支持，我们可以在**.tsx** 使用jsx语法了（注：和配置没啥关系，配置只是用来编译生成代码的，tsx天生就是支持jsx语法的）
 
 ```typescript
     render() {
         return <div>Hello, World!</div>;
     }
 ```
+最后一行是一个标准的React代码，它意思是在`#content` DOM 节点中输出我们的 `HelloWorld` 组件（component）的实例：
 
-The last line is standard React, instructing it to render an instance of our `HelloWorld` component into the 
-`#content` DOM element:
 
 ```typescript
 ReactDOM.render(<HelloWorld/>, document.getElementById("content"));
 ```
 
-Now all that's left is to build a HTML page to house our newly minted React Component:
+现在，所有剩下的就是建立一个HTML页面来容纳我们的刚刚编写的组件啦（component）：
 
-#### [index.html](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example01/index.html)
+#### [index.html](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/sample01/index.html)
 
 
 ```html
+<!DOCTYPE html>
 <html>
 <head>
-    <title>TypeScript + JSPM + React</title>
-    <script src="/jspm_packages/system.js"></script>
-    <script src="/config.js"></script>
-    <script>
-        System.import("./app");
-    </script>
+    <title>TypeScript + React + Redux</title>
+
 </head>
 <body>
-
-    <h1>Example 1</h1>
+    <h1>Example 2</h1>
     <div id="content"></div>
-
+    <script src="../../wwwroot/js/lib/react/react.min.js"></script>
+    <script src="../../wwwroot/js/lib/react/react-dom.min.js"></script>
+    <script src="../../wwwroot/js/sample02.js"></script>
 </body>
 </html>
+
 ```
 
-> **index.html** is a pre-defined default document in ASP.NET which lets us view our app by visiting the 
-directory, e.g `/example01/`
+> **index.html** 是一个在ASP.NET中预定义的默认文档，用来让我们可以浏览之前编写的组件效果，它被安排在各个示例文件夹中，像我之前说的那样，并不是非要放在这里，只是为了更好的组织url。上述的 index.html在目录`/example01/`中。
 
-Since we're using JSPM we need to import the `system.js` module loader and our JSPM `config.js`:
+首先，我们必须引入 `react.min.js` 和 `react-dom.min.js` 文件，之前有谈到过，webpack.config.js配置中设置react本身不被打包，而是单独引用。一些通用的第三方类库，为了更好的使用CDN和缓存，可以使用单独引用的方式，当然也可以打包在一起，哪种方式要看实际的情况。
 
 ```html
-    <script src="/jspm_packages/system.js"></script>
-    <script src="/config.js"></script>
+    <script src="../../wwwroot/js/lib/react/react.min.js"></script>
+    <script src="../../wwwroot/js/lib/react/react-dom.min.js"></script>
+
 ```
 
-But from then on we only need a single import for our **app.tsx**:
+同时我们引入了一个 `sample02.js`的文件，这有点奇怪，因为这个文件我们并没有创建，它这时确实也并不存在
 
 ```html
-    <script>
-        System.import("./app");
-    </script>
+    <script src="../../wwwroot/js/sample02.js"></script>
 ```
 
-Since we didn't configure JSPM to use a transpiler JSPM is only loading our pre-generated `*.js` files which 
-thanks to VS.NET's TypeScript integration is generated every time we hit save. This is ideal as it's 
-typically generated in-between the time we flip over to the browser to view our App, doesn't require any 
-manual post build steps or a separate external process monitoring our source files for changes. 
+这就是我们接下来要处理的问题，之前我们讲到我会使用 `webpack` 来 代替默认使用 `VS.NET 2015` 作为 `Typescript` 的编译器，`sample02.js`文件其实是 `webpack` 自动生成的文件。这个时候它不存在，是因为我们还没有配置好它，让我们重新打开`webpack.config.js`文件，看看里面的内容：
 
-The nice thing about using a module loader like JSPM is that we no longer need to manage static imports of
-3rd party dependencies ourselves since JSPM does all this for us behind the scenes.
+```json
+module.exports = {
+   entry: {
+        sample01: "./source/sample01/app.tsx" //将示例1的app.tsx文件作为入口文件
+    },
+    output: {
+        filename: "./wwwroot/js/[name].js",
+    },
+    // Enable sourcemaps for debugging webpack's output.
+    devtool: "source-map",
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    },
 
-The final key element is an empty `<div/>` tag which is where we've instructed React to render our Component:
+    module: {
+        loaders: [
+            // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
+            { test: /\.tsx?$/, loader: "ts-loader" }
+        ],
+
+        preLoaders: [
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            { test: /\.js$/, loader: "source-map-loader" }
+        ]
+    },
+    // When importing a module whose path matches one of the following, just
+    // assume a corresponding global variable exists and use that instead.
+    // This is important because it allows us to avoid bundling all of our
+    // dependencies, which allows browsers to cache those libraries between builds.
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    }
+};
+```
+
+和之前的内容相比，只修改了 `entry` 配置节，将 `./source/sample01/app.tsx` 作为一个入口文件，并命名为 `sample01`, 而输出的目录则是 `./wwwroot/js/` 并且以入口的名字作为文件名 `[name].js`,所以在 `index.html` 我引入的文件 `../../wwwroot/js/sample02.js`
+
+```json
+    entry: {
+        sample01: "./source/sample01/app.tsx" //将示例1的app.tsx文件作为入口文件
+    },
+    output: {
+        filename: "./wwwroot/js/[name].js",
+    },
+```
+
+回到 `index.html` 文件中
+
+最后添加一个 `<div/>`  空标签元素，并设置 `id` 为 `content` 用来输出React组件。
 
 ```html
     <div id="content"></div>
 ```
 
-And with that we can hit **F5** and head over to  `/example01/` to see the fruits of our labor - 
-a working React App!
+现在所有的工作做完后，我们打开浏览器直接访问`/example01/`来查看效果了 -- 哈哈，我们第一个可运行的React应用！
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-01.png)](http://servicestackapps.github.io/typescript-redux/example01/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-01.png)](http://servicestackapps.github.io/typescript-redux/example01/)
+
 > Demo: [/typescript-redux/example01/](http://servicestackapps.github.io/typescript-redux/example01/)
 
 
-## Preloading Dependencies
 
-Although the excitement only lasts a short while until you witness a noticeable delay in rendering Hello World? 
-Checking the network requests tab shows the root cause: **170 requests** to render the simplest React App!
+**提示**： 我使用了 `VS.NET 2015` 作为开发工具，所以自带httpserver ，如果你并不是用`VS.NET 2015` ，那么可以任意的 `http server` 工具来查看示例。
 
-Since we don't have the luxury of HTTP 2's multiplexed requests in VS.NET's WebDev server, we need to find a
-way to get the network requests countdown. The common solution for this is to create an interim bundle with
-your 3rd party dependencies which change infrequently. We can do this by creating a simple `.tsx` file
-that just references all the 3rd party dependencies you want in the bundle, e.g:
+如使用node 的 `http-server`包
+全局安装：
 
-### [deps.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/8fbf5e4d2ed9bddc0ac73a17e3dbb954ffad13b3/src/TypeScriptRedux/src/deps.tsx)
+    C:\proj> npm install http-server -g
 
-```typescript
-import * as React from 'react';
-import { render } from 'react-dom';
+然后在项目的根目录运行：
 
-class Deps extends React.Component<any, any> {
-    render() {
-        return <div>Hello, World!</div>;  
-    }
-}
+    C:\proj> http-server 
+    
+打开浏览器 查看 ：`http://localhost:8080/source/sample01/index.html`
 
-const ignore = () => render(<Deps/>, document.body);
-```
 
-We can then use jspm to create a bundle with all the dependencies used into a single .js library, e.g:
+## [Example 2 - 模块化 HelloWorld](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example02)
 
-    C:\proj> jspm bundle src/deps deps.lib.js
+在第二个示例中，我们将尝试通过移动`<HelloWorld />`的实现到独立的文件中来模块化我们的应用：
 
-That we then include in our 
-[index.html](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example01/index.html)
 
-```html
-    <script src="/jspm_packages/system.js"></script>
-    <script src="/config.js"></script>
-    <script src="/deps.lib.js"></script>
-    <script>
-        System.import("./app");
-    </script>
-```
-
-This has the nice effect of preloading all referenced 3rd party modules in a single HTTP Request so by the 
-time our App requests use of a 3rd party module, it's already loaded.
-
-### Enable debugging in Browsers
-
-Another nice feature of TypeScript we've yet to explore is its generation of source maps which lets us debug 
-our original TypeScript sources directly from within Chrome. However to enable this we need to first register 
-our TypeScript file extensions with **Web.config** so they're downloadable. It just so happens that `.ts` is 
-already pre-registered with the `video/vnd.dlna.mpeg-tts` mime-type that as a matter of good taste we'd want 
-to replace whilst adding a new mimeType mapping for `.tsx` files:
-
-```xml
-<system.webServer>
-    <staticContent>
-        <remove fileExtension=".ts"/>
-        <mimeMap fileExtension=".ts" mimeType="application/x-typescript" />
-        <mimeMap fileExtension=".tsx" mimeType="application/x-typescript" />
-    </staticContent>
-</system.webServer>
-```
-
-With our website now configured to serve static TypeScript files we can now debug TypeScript directly within Chrome!
-
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/08-debug-tsx.png)
-
-## [Example 2 - Modularizing HelloWorld](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example02)
-
-For our 2nd example we'll look at how we can modularize our App by moving the `<HelloWorld />` implementation
-into its own file:
-
-### [HelloWorld.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example02/HelloWorld.tsx)
+### [helloworld.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example02/helloworld.tsx)
 
 ```typescript
-import * as React from 'react';
+import * as React from "react";
 
-export default class HelloWorld extends React.Component<any, any> {
+export class HelloWorld extends React.Component<any, any> {
     render() {
-        return <div>Hello, World!</div>;
+        return <div>Hello world!It's from Helloword Component.</div>;
     }
 }
 ```
+为了让HelloWorld组件在外部可以被调用，我们需要使用 `export` 关键字。我们同样可以使用 `default` 关键字来定义一个**默认导出**（**default export**），让使用者导入的时候更加方便，并可以重命名称它们喜欢的名字，然后我们需要移除在**app.tsx**中的HelloWorld实现，并用import 新组件的方式代替它：
 
-To make the HelloWorld component available we need to use the `export` keyword. We can also use the `default` 
-keyword to define a **default export** which makes it a little nicer to import as consumers can assign it to
-their preferred name when importing it.
-
-Then remove the existing HelloWorld implementation from **app.tsx** and import the exported component instead:
-
-### [app.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example02/app.tsx)
+### [app.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example02/app.tsx)
 
 ```typescript
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+/ <reference path='../../typings/browser.d.ts'/>
 
-import HelloWorld from './HelloWorld';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+
+import {HelloWorld} from "./helloworld";
 
 ReactDOM.render(<HelloWorld/>, document.getElementById("content"));
+
 ```
 
-If we didn't use a **default export** we'd need to import it with:
+如果我们使用**默认导出**（**default export**），那么导入的部分就是这样的：
 
 ```typescript
-import { HelloWorld } from './HelloWorld';
+import  HelloWorld  from './HelloWorld';
 ```
 
-With this simple change lets check that our App still works:
+这个示例的改动非常小，我们来看一下，我们的程序是否还能正常运行。
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-02.png)](http://servicestackapps.github.io/typescript-redux/example02/)
+> 注：这里要注意我们仍需在webpack.config.js中添加 entry ，后续的示例不再重复了
+
+```json
+    entry: {
+        sample01: "./source/sample01/app.tsx",
+        sample02: "./source/sample02/app.tsx"
+    },
+    ...
+```
+
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-02.png)](http://servicestackapps.github.io/typescript-redux/example02/)
 > Demo: [/typescript-redux/example02/](http://servicestackapps.github.io/typescript-redux/example02/)
 
-## [Example 3 - Creating a stateful Component](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example03)
+## [Example 3 - 创建一个有状态的组件](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example03)
 
-Now that we've mastered HelloWorld we'll up our game and create a more advanced component with some state.
+现在我们已经是Helloworld界的大师了，应该升级下我们的游戏规则，创建一些更高级的有状态的组件了，毕竟不能100级了，还在新手村。
 
-About the simplest example we could do for this is a Counter. For this rename `HelloWorld` to `Counter` and 
-add the following Component:
+我们要做的第一件伟大的事情就是计数器，是的，我们把示例中的 `helloword` 文件修改文件名为 `counter` 并把内容修改如下：
 
-#### [Counter.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example03/Counter.tsx)
+
+#### [counter.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example03/counter.tsx)
 
 ```typescript
-import * as React from 'react';
+import * as React from "react";
+
 
 export default class Counter extends React.Component<any, any> {
-    constructor(props, context) {
+
+   constructor(props, context) {
         super(props, context);
         this.state = { counter: 0 };
     }
@@ -500,51 +494,54 @@ export default class Counter extends React.Component<any, any> {
             </div>
         );
     }
+
     incr(by:number) {
         this.setState({ counter: this.state.counter + by });
     }
 }
 ```
 
-Nothing surprising here, we're displaying a Counter in a HTML label with buttons to increment / decrement the 
-counter using React's built-in `setState()`:
+好像没什么惊喜，我们在页面中添加了一个计数器，通过按钮 increment / decrement 来改变它的值， 实际使用的是React内置的`setState()`方法:
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-03.png)](http://servicestackapps.github.io/typescript-redux/example03/) 
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-03.png)](http://servicestackapps.github.io/typescript-redux/example03/) 
 > Demo: [/typescript-redux/example03/](http://servicestackapps.github.io/typescript-redux/example03/)
 
-### Convert Counter to use Redux
+### 使用 Redux 
 
-Using `setState()` is the old-school way of modifying state in Components, the new hawtness is to use 
-[Redux](https://github.com/rackt/redux). For this we need to fetch it from JSPM:
+使用 `setState()` 是在组件中改变状态的老办法了，现在比较流行的是使用 [Redux](https://github.com/rackt/redux)，在使用之前，我们需要安装一下:
 
-    C:\proj> jspm install redux
+    C:\proj> npm install redux --save
 
-as well as its Type Definitions:
+同样也要安装它的定义文件 Type Definitions:
 
     C:\proj> typings install redux --ambient --save
 
-## [Example 4 - Change Counter to use Redux](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example04)
+## [Example 4 - 使用 Redux 改造计数器](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example04)
 
-If you're not familiar with Redux it's a good time to head over to the 
-[Redux docs](http://rackt.org/redux/) and read the overview. The 
-[30 short videos](https://egghead.io/series/getting-started-with-redux) from Redux creator 
-[@dan_abramov](https://twitter.com/dan_abramov) provides a great way to get up to speed quickly.
+如果你对Redux 还不太熟悉，现在是开始的时候,下面是一些相关的问题（不过下面的网站在天朝基本都打不开）：
 
-Redux is just a small library to manage your App's state which should be maintained in a single Redux store 
-that's accessible at anytime with `store.getState()`. The Redux store allows for multiple subscribers to 
-subscribe to state changes which must be initiated by dispatching an action. An action being just a plain 
-JavaScript object with a `type` string property identifying the action. To change state you implement a 
-[reducer](http://rackt.org/redux/docs/basics/Reducers.html) function that takes the **current state** and 
-an **action** and whose sole purpose is to return the **next state**. The one caveat is for states to be 
-immutable so your reducer will need to return a new object instead of modifying any existing state.
+- [Redux docs](http://rackt.org/redux/) 
+- [30 short videos](https://egghead.io/series/getting-started-with-redux) 
+- [@dan_abramov](https://twitter.com/dan_abramov) 
 
-Now we know what Redux is, let's update our Counter to use it:
+这里推荐两个中文在线文档吧，虽然也经常打不开：
 
-#### [Counter.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example04/Counter.tsx)
+- [Redux中文指南][5]
+- [Redux tutorial 中文][6]
+
+Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
+
+可以让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。不仅于此，它还提供 超爽的开发体验，比如有一个时间旅行调试器可以编辑后实时预览。
+
+Redux 除了和 React 一起用外，还支持其它界面库。
+它体小精悍（只有2kB）且没有任何依赖。
+
+现在我们知道Redux 是什么了，让我们开始改造我们的计数器：
+
+#### [counter.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example04/Counter.tsx)
 
 ```typescript
 import * as React from 'react';
-
 import { createStore } from 'redux';
 
 let store = createStore(
@@ -579,12 +576,12 @@ export default class Counter extends React.Component<any, any> {
         );
     }
 }
+
 ```
 
-### Creating a Redux Store
+### 创建一个 Redux Store
 
-Creating a Redux store is done by calling `createStore` from the **redux** module passing in our Apps reducer 
-function and the default state:
+引用**redux**模块的 `createStore`方法，并创建一个Redux store ，并传递默认的state:
 
 ```typescript
 import { createStore } from 'redux';
@@ -600,14 +597,10 @@ let store = createStore(
     },
     { counter: 0 });
 ```
+因为我们的计数器只有一个Action ，我们的reducer（Redux中的专有名词，即处理Action的函数）的实现就比较简单 - 返回更新的计数器对象
 
-Since our Counter only has 1 action our reducer implementation becomes trivial - returning a new object with 
-an updated Counter.
+另外一件我们需要知道的关于Redux的事情是Redux是独立于React的，并不像 `setState()` 那样内置在其中的。React并不知道什么时候你的Redux Store中的State发生了变化--其实是需要知道的，因为你的组件要知道什么时候需要重绘。因为这个，我们需要注册一个监听器来观察 store的state变化来强制触发组件的重绘：
 
-Another thing to know about Redux is that it's completely independent from React which unlike the built-in 
-`setState()` React doesn't know when the state in your Redux store has changed - needed in order to
-know when to re-render your Component. For this we need to register a listener so we can force the Component
-to re-render itself when the store's state changes:
 
 ```typescript
     private unsubscribe: Function;
@@ -620,8 +613,7 @@ to re-render itself when the store's state changes:
     }
 ```
 
-We also need to change the component to read its state from `store.getState()` and instead of modifying the
-Components internal state with `setState()` we dispatch an action and get our reducer to update the App's state:
+我们还需要将修改组件通过`store.getState()` 方法读取它的state信息，并修改之前的内置方式`setState()`方法为触发一个Action来修改我们应用的state 。
 
 ```typescript
     render() {
@@ -638,39 +630,36 @@ Components internal state with `setState()` we dispatch an action and get our re
     }
 ```
 
-With our Counter now reduxified, running it again retains the same behavior as before:
+现在我们的计数器已经"Redux化"了，重新运行一下示例，并看看和之前的效果是否一致？ 
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-04.png)](http://servicestackapps.github.io/typescript-redux/example04/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-04.png)](http://servicestackapps.github.io/typescript-redux/example04/)
 > Demo: [/typescript-redux/example04/](http://servicestackapps.github.io/typescript-redux/example04/)
 
-## Install React Redux
+## 安装 React Redux
 
-Something that stands out in the previous example is creating the Redux store in the `Counter` module.
-Since your App should only have 1 store, this isn't the right place for it. We can remedy this situation 
-with a bit of help from Redux's React helper library.
+在上一个示例中，我们在`Counter`模块中创建了 Redux store 来帮助我们优化代码。因为你的应用应该只有一个Store，所以这不是一个正确使用它的方式 （关于这个原则，你需要参看Redux的相关文档），我们使用Redux的React帮助库来帮我们改善这种情况。
 
-The Redux bindings for React are maintained in a separate `react-redux` package that we can call upon **JSPM** 
-to fetch for us:
+事实上，当我们结合Redux和React的时候，我们必须安装的一个包就是`react-redux`，它同样可以通过  **npm** 方式安装
 
-    C:\proj> jspm install react-redux
+    C:\proj> npm install react-redux --save
 
-Like most popular libraries, there's also a Type Definition for it:
+和大多数流行的类库一样，它也已经有了类型定义文件了，一起来安装一下吧：
 
     C:\proj> typings install react-redux --ambient --save
 
-## [Example 5 - Use Provider to inject store in child Context](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example05)
+## [Example 5 - 使用 Provider 注入store到纸容器的上下文（context）中](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example05)
 
-For this example, we'll move the Redux store into the top-level **app.tsx** file like so:
+在这个示例中，我们将 Redux store 移动到上一层的**app.tsx** 文件中，就像这样
 
-#### [app.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example05/app.tsx)
+#### [app.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example05/app.tsx)
 
 ```typescript
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-import Counter from './Counter';
+import Counter from "./counter";
 
 let store = createStore(
     (state, action) => {
@@ -690,14 +679,12 @@ ReactDOM.render(
     document.getElementById("content"));
 ```
 
-To pass the store down to our components we're going to use 
-[React's child context](https://facebook.github.io/react/docs/context.html) feature which is nicely packaged 
-for us with **react-redux** `<Provider/>` Component.
+为了传递store到我们的组件中，我们使用了[React's child context](https://facebook.github.io/react/docs/context.html) 特性 ， 在 **react-redux** 封装了 `<Provider/>`组件 ，我们直接使用就可以了。
 
-To let React know we want the store injected into our `Counter` Component we also need to define a static
-`contextTypes` property specifying the context it needs:
+为了让React知道 我们希望把store注入到我们的 `Counter` 组件中，我们还需要定义个静态的`contextTypes` 属性 制定context中需要的内容：
 
-#### [Counter.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example05/Counter.tsx)
+
+#### [counter.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example05/counter.tsx)
 
 ```typescript
 import * as React from 'react';
@@ -729,22 +716,20 @@ export default class Counter extends React.Component<any, any> {
 }
 ```
 
-This is another transparent change so our App should continue working:
+改动对页面没什么影响，我们的程序应该还是可以正常运行：
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-05.png)](http://servicestackapps.github.io/typescript-redux/example05/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-05.png)](http://servicestackapps.github.io/typescript-redux/example05/)
 > Demo: [/typescript-redux/example05/](http://servicestackapps.github.io/typescript-redux/example05/)
 
 
-## [Example 6 - Use connect() to make Components stateless](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example06)
+## [Example 6 - 使用 connect() 创建无状态的组件](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example06)
 
-We've added a bit of boilerplate to get to where we are but it's now time to pull some of it back. The above 
-example shows how we can use the `Provider` Component to pass state down into our child components, 
-**react-redux** also has another utility that can abstract the rest away.
+我们已经编写了一些示例程序，现在哦我们回过头来重新看看一下。在上一个例子中，我们看到我们可以通过 `Provider` 组件来传递 state到我们的子组件，**react-redux** 同样也提供了一些其他的方式。
 
-Redux's `connect()` function returns a higher-level Component which can make Components stateless, decoupling 
-it from the Redux store by mapping its state and callbacks to a Component's properties:
 
-#### [Counter.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example06/Counter.tsx)
+Redux的 `connect()` 函数返回一个更高级别的组件，它可以让组件变得无状态（stateless）, 通过将state和callback函数映射到组件的属性上（properties）以降低组件和Redux Store的耦合度：
+
+#### [counter.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example06/counter.tsx)
 
 ```typescript
 import * as React from 'react';
@@ -780,87 +765,57 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-To enable this we pass in a **mapStateToProps** function that returns an object containing all the state our 
-component needs. As our Component also makes state changes we'll need a **mapDispatchToProps** function 
-as well, returning an object with all its callouts translated into dispatching the appropriate Redux action. 
+为了达到这个效果，我们通过传递一个 **mapStateToProps** 的函数 ，这个函数返回一个对象，这个对象包含组件所需要的所有状态（state）。
+我们的组件仍然需要更新状态，所以还需要传递一个 **mapDispatchToProps** 的函数，这个函数通过调用，将组织需要传递到Redux action的参数，并触发对应在store中注册的Reduce。
 
-Redux `connect()` then combines these functions into a new higher-level Component that subscribes to the Redux 
-store changes, re-rendering its (now child) `Counter` component with updated state via Component properties.
+Redux的 `connect()`  会将上述函数组合到一个更高一级的组件中，并订阅Redux store的变化，通过更新state来改变组件的属性并重绘（实际上的子组件） `Counter` 组件
 
-This change is also transparent so re-running the App retains the existing behavior:
+这些修改对页面来说仍然是透明的，你可以打开并重新试试它的功能
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-06.png)](http://servicestackapps.github.io/typescript-redux/example06/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-06.png)](http://servicestackapps.github.io/typescript-redux/example06/)
 > Demo: [/typescript-redux/example06/](http://servicestackapps.github.io/typescript-redux/example06/)
 
-## Install es6-shim
+## 安装 es6-shim
 
-Now that we've worked ourselves towards the ideal way to build a Redux-connected component, it's time to kick 
-it into high gear and build something more useful. Ultimately we're going to want to expand our reducer function
-to handle more state, actions and their state transitions. 
+原文中的这个章节是为了合并对象，安装es6-shim，并使用其中的 `Object.assign()` 方法，我从[Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)，这里重新复制了Polyfill如下，而没有使用 es6-shim ，如下代码所示：
 
-Since we're going to be supporting more actions we're going to quickly want better tools for creating 
-immutable objects. TypeScript already supports ES6's 
-[spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)
-which helps with creating new arrays but it doesn't yet support the 
-[object spread operator proposal](https://github.com/sebmarkbage/ecmascript-rest-spread) - 
-something we're going to be doing a lot of. 
+```javascript
+if (typeof Object.assign != 'function') {
+  (function () {
+    Object.assign = function (target) {
+      'use strict';
+      if (target === undefined || target === null) {
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
 
-Instead we'll enlist the help of ES6's 
-[Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign).
-As TypeScript was configured to target ES5, this isn't automatically available but we can still make it
-appear with our good friend **JSPM**:
-
-    C:\proj> jspm install es6-shim
-
-Then use **typings** to fetch ES6's Type Definitions:
-
-    C:\proj> typings install es6-shim --ambient --save
-
-Since it's been awhile since our last interim build, now's a good time to cut another. First we'll expand 
-**deps.tsx** to reference a bit from every dependency:
-
-#### [deps.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/deps.tsx) 
-
-```typescript
-import * as React from 'react';
-import { render } from 'react-dom';
-import { createStore } from 'redux';
-import { connect } from 'react-redux';
-import * as ES6 from 'es6-shim';
-
-var a = ES6.Object.assign({});
-var store = createStore((state, action) => state, {});
-
-class Deps extends React.Component<any, any> {
-    render() {
-        return <div>Hello, World!</div>;  
-    }
+      var output = Object(target);
+      for (var index = 1; index < arguments.length; index++) {
+        var source = arguments[index];
+        if (source !== undefined && source !== null) {
+          for (var nextKey in source) {
+            if (source.hasOwnProperty(nextKey)) {
+              output[nextKey] = source[nextKey];
+            }
+          }
+        }
+      }
+      return output;
+    };
+  })();
 }
-
-var DepsRedux = connect((state) => ({}), (dispatch) => ({}))(Deps);
-
-const ignore = () => render(<Deps/>, document.body);
 ```
 
-Then instruct JSPM to cut a new bundle:
+## [Example 7 - Shape Creator](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07)
 
-    C:\proj> jspm bundle src/deps deps.lib.js
+我们的下一个例子 我们将扩展Redux创建一个更大，更高级的真实的应用程序，通过这个例子进一步探索它的好处。这个世界不需要另外一个[TodoMVC](http://todomvc.com)应用了，所以我计划创建另外一个形状生成应用代替，它提供更多的视角去观察状态的变化。
 
-## [Example 7 - Shape Creator](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example07)
 
-For our next example we'll look at scaling Redux to a larger, more advanced real-world application, exploring 
-some of its benefits along the way. The world doesn't need another [TodoMVC](http://todomvc.com) App so I've 
-opted to go with something more visual to provide a better illustration of state changes and create a 
-Shape Creator App instead.
+### [Counter.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07/counter.tsx)
 
-### [Counter.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example07/Counter.tsx)
+我们将开始创建通过计数器（Counter）来控制控件的宽度和高度，为了达到这效果，需要重构一下我们的 `Counter` 组件，定义个`field`的属性来确定应该修改哪个状态（width/height），让其变得更加可复用。另外再增加一个 `step` 的属性来控制变化的尺度。
 
-We'll start by creating controls for specifying Width and Height, to do this we need to refactor our `Counter` 
-into a reusable Component starting with a custom `field` property to specify the state it should manage. 
-We'll also add a `step` property enabling further customization to be able to increment by a custom value.
+因为我们要发送多个Action，所以我们要适修改一下我们的Action Type名字，这里我们使用`{Type}_{Event}`格式来重命名它们，所以计数器的Action变成了`COUNTER_CHANGE`
 
-Since we're going to be sending multiple actions I'll also adopt a semantic naming convention for action types 
-going forward using the format `{Type}_{Event}`, which for a Counter update becomes `COUNTER_CHANGE`:
 
 ```typescript
 import * as React from 'react';
@@ -896,26 +851,22 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-Now that it's reusable we can create multiple instances to control the Width and Height of our Shape:
+现在它变得可以复用了，我们可以创建多个实例来控制我们形状的Width和Height了：
 
 ```html
 <Counter field="width" step={10} />
 <Counter field="height" step={10} />
 ```
 
-Which gets rendered as:
+它看上去就像这样:
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/shapes-dimensions.png)
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/shapes-dimensions.png)
 
-### [ColorPicker.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example07/ColorPicker.tsx)
+### [colorpicker.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07/colorpicker.tsx)
 
-The next Component our Shape Creator needs are controls to pick a color. The **range** INPUT control is ideal
-for this as it lets us quickly change the intensity of each color using a slider. We'll need a slider for each
-basic color as well as a preview area displaying the color. The only unusual thing is a function to calculate
-the colors luminance, used to determine whether to show black or white contrasting text.
+下一个组件我们需要一个控制颜色的组件，**range** INPUT 控件非常适合作为基础颜色调节器的空间，类似一个滑动条（这个控件在IE的老版本上没有办法识别，请大家不要用IE看），同时需要一个显示颜色的区域，唯一不寻常的事情是需要一个计算颜色亮度的函数用来区分是否显示白色或者黑色的前台文本 。
 
-Otherwise `<ColorPicker />` is a pure React component without any dependencies on Redux, for that we'll 
-wrap it within another higher-level Component later on:
+并且`<ColorPicker />` 是一个单纯的React控件，对Redux没有任何的依赖，所以稍后我们需要把它包装进一个更高级别的组件中:
 
 ```typescript
 import * as React from 'react';
@@ -2162,3 +2113,5 @@ to drop feedback to [@demisbellot](https://twitter.com/demisbellot).
   [2]: https://segmentfault.com/a/1190000002551952
   [3]: https://zhongsp.gitbooks.io/typescript-handbook/content/doc/handbook/quick-start/react-webpack.html
   [4]: http://webpack.github.io/docs/configuration.html
+  [5]: http://cn.redux.js.org
+  [6]: https://github.com/react-guide/redux-tutorial-cn
