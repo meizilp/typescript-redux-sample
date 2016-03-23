@@ -16,7 +16,7 @@ import "./objectassign";
 var actions = [];
 var defaultState = { nextShapeId: 0, width: 100, height: 100, color: "#000000", shapes: [] };
 
-let store = createStore(
+let store = createStore( 
     (state, action) => {
         actions.push(action);
         let shape;
