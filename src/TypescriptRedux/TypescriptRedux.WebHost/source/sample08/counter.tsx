@@ -4,13 +4,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 
-interface ICounterProps {
-    field: string;
-    step?: number;
-    counter?: number;
-    incr?: Function;
-    decr?: Function;
-}
 
 class Counter extends React.Component<any, any> {
     render() {
@@ -28,7 +21,7 @@ class Counter extends React.Component<any, any> {
     }
 }
 
-const mapStateToProps = (state, props) => ({ counter: state.counter[props.field] || 0 });
+const mapStateToProps = (state, props) => ({ counter: state[props.field] || 0 });
 
 const mapDispatchToProps = (dispatch) => ({
     incr: (field, step) => {

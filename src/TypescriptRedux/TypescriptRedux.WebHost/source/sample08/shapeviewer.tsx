@@ -43,7 +43,7 @@ class ShapeViewer extends React.Component<any, any> {
 }
 
 export default connect(
-    (state) => ({ shapes: state.shape.shapes }),
+    (state) => ({ shapes: state.shapes }),
     (dispatch) => ({
         updateShape: (id, top, left) => dispatch({ type: "SHAPE_CHANGE", id, top, left })
     })
