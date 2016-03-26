@@ -1,4 +1,5 @@
 
+
 注：本文的原始资料和示例来自 [ServiceStackApps/typescript-redux](https://github.com/ServiceStackApps/typescript-redux) ,根据我的实际情况，做了一些调整，详见文内说明，感谢原作者的无私分享。
 
 本文通过设置，运行和探索Javascript一些高级的技术栈：
@@ -460,7 +461,7 @@ import  HelloWorld  from './HelloWorld';
     ...
 ```
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-02.png)](http://servicestackapps.github.io/typescript-redux/example02/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-02.png)](http://servicestackapps.github.io/typescript-redux/example02/)
 > Demo: [/typescript-redux/example02/](http://servicestackapps.github.io/typescript-redux/example02/)
 
 ## [Example 3 - 创建一个有状态的组件](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example03)
@@ -503,7 +504,7 @@ export default class Counter extends React.Component<any, any> {
 
 好像没什么惊喜，我们在页面中添加了一个计数器，通过按钮 increment / decrement 来改变它的值， 实际使用的是React内置的`setState()`方法:
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-03.png)](http://servicestackapps.github.io/typescript-redux/example03/) 
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-03.png)](http://servicestackapps.github.io/typescript-redux/example03/) 
 > Demo: [/typescript-redux/example03/](http://servicestackapps.github.io/typescript-redux/example03/)
 
 ### 使用 Redux 
@@ -632,7 +633,7 @@ let store = createStore(
 
 现在我们的计数器已经"Redux化"了，重新运行一下示例，并看看和之前的效果是否一致？ 
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-04.png)](http://servicestackapps.github.io/typescript-redux/example04/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-04.png)](http://servicestackapps.github.io/typescript-redux/example04/)
 > Demo: [/typescript-redux/example04/](http://servicestackapps.github.io/typescript-redux/example04/)
 
 ## 安装 React Redux
@@ -718,7 +719,7 @@ export default class Counter extends React.Component<any, any> {
 
 改动对页面没什么影响，我们的程序应该还是可以正常运行：
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-05.png)](http://servicestackapps.github.io/typescript-redux/example05/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-05.png)](http://servicestackapps.github.io/typescript-redux/example05/)
 > Demo: [/typescript-redux/example05/](http://servicestackapps.github.io/typescript-redux/example05/)
 
 
@@ -771,13 +772,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 Redux的 `connect()`  会将上述函数组合到一个更高一级的组件中，并订阅Redux store的变化，通过更新state来改变组件的属性并重绘（实际上的子组件） `Counter` 组件
 
 这些修改对页面来说仍然是透明的，你可以打开并重新试试它的功能
-
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/preview-06.png)](http://servicestackapps.github.io/typescript-redux/example06/)
+     
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-05.png)](http://servicestackapps.github.io/typescript-redux/example06/)
 > Demo: [/typescript-redux/example06/](http://servicestackapps.github.io/typescript-redux/example06/)
 
 ## 安装 es6-shim
 
-原文中的这个章节是为了合并对象，安装es6-shim，并使用其中的 `Object.assign()` 方法，我从[Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)，这里重新复制了Polyfill如下，而没有使用 es6-shim ，如下代码所示：
+原文中的这个章节是为了合并对象，安装es6-shim，并使用其中的 `Object.assign()` 方法，我从 [Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)这里复制了Polyfill如下，而没有使用 es6-shim ，如下代码所示：
 
 ```javascript
 if (typeof Object.assign != 'function') {
@@ -807,7 +808,7 @@ if (typeof Object.assign != 'function') {
 
 ## [Example 7 - Shape Creator](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07)
 
-我们的下一个例子 我们将扩展Redux创建一个更大，更高级的真实的应用程序，通过这个例子进一步探索它的好处。这个世界不需要另外一个[TodoMVC](http://todomvc.com)应用了，所以我计划创建另外一个形状生成应用代替，它提供更多的视角去观察状态的变化。
+我们的下一个例子 我们将扩展Redux创建一个更大，更高级的真实的应用程序，通过这个例子进一步探索它的好处。因为这个世界不需要另外一个[TodoMVC](http://todomvc.com)应用了，所以我计划创建另外一个形状生成应用代替，它提供更多的视角去观察状态的变化。
 
 
 ### [Counter.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07/counter.tsx)
@@ -860,7 +861,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 它看上去就像这样:
 
-![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/tree/master/img/shapes-dimensions.png)
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/shapes-dimensions.png)
 
 ### [colorpicker.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07/colorpicker.tsx)
 
@@ -949,21 +950,21 @@ const luminance = (color: string) => {
 export const isDark = (color: string) => luminance(color) < 100;
 ```
 
-Which gets rendered as:
+在界面上看起来像这样:
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/shapes-colorpicker.png)
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/shapes-colorpicker.png)
 
-### [ShapeMaker.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example07/ShapeMaker.tsx)
+### [shapemaker.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07/shapemaker.tsx)  
 
-Our Shape Creator is nearly there, to introduce some more state we'll also capture the **top** and 
-**left** positions indicating where to place it as well as a preview area showing the color and size 
-of the shape, embedding the coordinates of where it will be placed. We'll also need to add the all important 
-**Add Shape** button to add the Shape to our App: 
+
+
+这就是我们的Shape 生成器，引入了更多的状态，我们将关注 **top** 和**left** 的位置来确定他在预览区域显示的位置，同时控制它的颜色和大小，同时也非常重要的是我们加了一个 **Add Shape** 的按钮，把Shape添加到我们的预览区域中，详细的代码如下：
+: 
 
 ```typescript
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { isDark } from './ColorPicker';
+import * as React from "react";
+import { connect } from "react-redux";
+import { isDark } from "./colorpicker";
 
 class ShapeMaker extends React.Component<any, any> {
     constructor(props?, context?) {
@@ -980,17 +981,17 @@ class ShapeMaker extends React.Component<any, any> {
                     <b>{height}x{width}</b>
                 </p>
                 <div style={{ height, width, background, color, lineHeight: height + "px", margin: "auto" }}>
-                    ({this.state.top},{this.state.left})
+                    ({this.state.top}, {this.state.left})
                 </div>
                 <div>
                     <p>
                         <label>position: </label>
-                        <input style={{width:30}} defaultValue={this.props.top} onChange={e => this.handleTop(e)} />
-                        <span>,</span>
-                        <input style={{width:30}} defaultValue={this.props.left} onChange={e => this.handleLeft(e)} />
+                        <input style={{ width: 30 }} defaultValue={this.props.top} onChange={e => this.handleTop(e) } />
+                        <span>, </span>
+                        <input style={{ width: 30 }} defaultValue={this.props.left} onChange={e => this.handleLeft(e) } />
                     </p>
 
-                    <button onClick={e => this.props.addShape(background,height,width,this.state.top,this.state.left) }>
+                    <button onClick={e => this.props.addShape(background, height, width, this.state.top, this.state.left) }>
                         Add Shape
                     </button>
                 </div>
@@ -1022,103 +1023,108 @@ export default connect(
 )(ShapeMaker);
 ```
 
-Which gets generated as:
+在界面上看起来像这样:
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/shapes-preview.png)
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/shapes-preview.png)
 
-### Message-based Actions
+### 基于消息的Actions
 
-Interestingly despite the number of moving parts of this Component it only emits a single `SHAPE_ADD` Action.
-We're starting to see some of the benefits of Redux's approach as it forces us to expose our functionality 
-behind coarse-grained API's disconnected from the DOM so now anyone with access to the Store automatically has
-access to the Apps functionality which thanks to its message-based design
-[offers a number of advantages](https://github.com/ServiceStack/ServiceStack/wiki/Advantages-of-message-based-web-services#advantages-of-message-based-designs)
-over opaque function calls, e.g. since they're just plain JavaScript objects we could easily create and 
-serialize 100 `SHAPE_ADD` actions and save them into localStorage for ourselves to restore later or even send 
-to someone else who could generically apply them locally with minimal effort. 
+有趣的是，尽管这个组件的改动部分貌似很多，不过它仅仅触发一个单独的`SHAPE_ADD` Action。
+我们开始看到一些使用Redux方式的好处，像强制分离我们功能背后的粗粒度API ，去除和DOM的关系。
+这样只要能操作Store就能操作应用程序的的具体功能，这都要感谢[基于消息的设计](https://github.com/ServiceStack/ServiceStack/wiki/Advantages-of-message-based-web-services#advantages-of-message-based-designs)。
+因为它们只是基本的javascript对象，我们可以非常轻松的创建并序列化100个 `SHAPE_ADD` actions，并且把它们存储到localStorage等以便我们后续重置，甚至通知到别人，再在其本地重现过程。
 
-### [ShapeViewer.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example07/ShapeViewer.tsx)
 
-Now that we've got everything we need to create shapes, we'll also need a Component to view them. 
-`ShapeViewer` does this by rendering a `DIV` in the size, color and position of each Shape added:
+
+### [ShapeViewer.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07/shapeviewer.tsx)
+
+现在我已经有了创建一个Shape的所有部分，我们还需要一个组件去显示他们，`ShapeViewer` 通过输出一个 `DIV`显示添加Shape的大小，颜色和未知。
+
 
 ```typescript
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { isDark } from './ColorPicker';
+import * as React from "react";
+import { connect } from "react-redux";
+import { isDark } from "./colorpicker";
 
-class ShapeViewer extends React.Component<any, any> {
+class ShapeMaker extends React.Component<any, any> {
     constructor(props?, context?) {
         super(props, context);
-        this.state = { isDragging: false};
+        this.state = { top: props.top, left: props.left };
     }
     render() {
+        var width = this.props.width, height = this.props.height, background = this.props.color;
+        const color = isDark(background) ? '#fff' : '#000';
         return (
-            <div className="noselect" 
-                style={{position:"relative",border:"solid 1px #ccc",width:860,height:500}}>
-            { this.props.shapes.map(s => (
-                <div key={s.id} style={{
-                    position:"absolute",top:s.top,left:s.left,color:isDark(s.color)?'#fff':'#000',
-                    background:s.color,width:s.width,height:s.height,
-                    lineHeight:s.height+'px',textAlign:"center",cursor:'move'}}
-                    onMouseDown={e => this.handleDragInit(e) }
-                    onMouseUp={e => this.setState({ isDragging: false }) }
-                    onMouseOut={e => this.setState({ isDragging: false }) }
-                    onMouseMove={e => this.handleDrag(s.id, s.height, s.width, e) }>
-                    ({s.top},{s.left})
-                </div>)
-            )}
+            <div>
+                <p>
+                    <label>size: </label>
+                    <b>{height}x{width}</b>
+                </p>
+                <div style={{ height, width, background, color, lineHeight: height + "px", margin: "auto" }}>
+                    ({this.state.top}, {this.state.left})
+                </div>
+                <div>
+                    <p>
+                        <label>position: </label>
+                        <input style={{ width: 30 }} defaultValue={this.props.top} onChange={e => this.handleTop(e) } />
+                        <span>, </span>
+                        <input style={{ width: 30 }} defaultValue={this.props.left} onChange={e => this.handleLeft(e) } />
+                    </p>
+
+                    <button onClick={e => this.props.addShape(background, height, width, this.state.top, this.state.left) }>
+                        Add Shape
+                    </button>
+                </div>
             </div>
         );
     }
-    handleDragInit(e) {
-        var el = e.target as HTMLElement;
-        while (el.nodeName !== 'DIV')
-            el = el.parentNode as HTMLElement; //don't select text SPAN node
-        var top = parseInt(el.style.top) || 0;
-        var left = parseInt(el.style.left) || 0;
-        this.setState({ isDragging: true, orig: { x: e.pageX - left, y: e.pageY - top} });
+    handleTop(e) {
+        var top = parseInt(e.target.value);
+        if (!isNaN(top))
+            this.setState({ top });
     }
-    handleDrag(id, height, width, e) {
-        if (this.state.isDragging) {
-            this.props.updateShape(id, e.pageY - this.state.orig.y, e.pageX - this.state.orig.x);
-        }
+    handleLeft(e) {
+        var left = parseInt(e.target.value);
+        if (!isNaN(left))
+            this.setState({ left });
     }
 }
 
 export default connect(
-    (state) => ({ shapes: state.shapes }), 
+    (state) => ({
+        width: state.width, height: state.height, color: state.color,
+        top: state.nextShapeId * 10, left: state.nextShapeId * 10
+    }),
     (dispatch) => ({
-        updateShape: (id, top, left) => dispatch({ type:'SHAPE_CHANGE', id, top, left})
+        addShape: (color, height, width, top, left) => {
+            dispatch({ type: 'SHAPE_ADD', height, width, color, top, left });
+        }
     })
-)(ShapeViewer);
+)(ShapeMaker);
 ```
 
-When Shapes have been added, ShapeViewer renders them into an empty div container: 
+当添加一个Shape，ShapeViewer就会一个空DIV容器中绘制它。
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/shapes-viewer.png)
 
-### Dragging shapes to generate actions
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/shapes-viewer.png)
 
-In addition to viewing all shapes ShapeViewer also includes support for moving and updating a shape's position 
-as it's a fast way to generate a lot of Actions quickly that ends up being a great way to visualize and replay 
-a series of state transitions. 
+### 拖拽 shapes 来产生Actions
 
-> For simplicity we're using mouseover events instead of the proper drag and drop API's for this so you'll 
-need to start off dragging slowly, making the shape bigger also helps increases the target area.
+为了更好的查看所有的Shape，ShapeViewer 包括了支持拖拽来更新shape的位置的功能，这也是一个快速产生大量Action的一个方法，可以快速的可视化并播放一系列state的变化
 
-### [ActionPlayer.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example07/ActionPlayer.tsx)
 
-Now that we've effectively covered all our Apps functionality we can start flexing some Redux muscles. 
+> 为了简单起见，使用了mousemove事件而不是drag drop 的api云云
+
+### [ActionPlayer.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07/actionplayer.tsx)
+
+现在我们已经实现了我们App的所有功能，可以开始Redux的特别功能
 
 #### replayActions
 
-If we've built our App correctly we should in theory be able to replay our entire App session by resetting our 
-Redux store back to its default state and replaying each action sent, which is exactly what `replayActions` 
-does, albeit slowly, with each action replayed 10ms apart to give the illusion of time:
+如果你已经正确的完成我们的应用，我理论上可以通过重置Redux的Store到它的默认状态，然后再次触发之前的每一个Action来重现我们整个应用的会话。这就是 `replayActions` 要实现的功能。每个Action我们提供10毫秒*第几个的间隔来播放。
 
 ```typescript
-import * as React from 'react';
+import * as React from "react";
 
 export default class ActionPlayer extends React.Component<any, any> {
     private unsubscribe: Function;
@@ -1131,118 +1137,107 @@ export default class ActionPlayer extends React.Component<any, any> {
     render() {
         return (
             <div>
-                <button onClick={e => this.replayActions()}>replay</button>
+                <button onClick={e => this.replayActions() }>replay</button>
                 <p>
                     <b>{this.props.actions.length}</b> actions
                 </p>
-                <button onClick={e => this.undoAction()}>undo</button> <span></span>
-                <button onClick={e => this.resetState()}>clear</button>
+                <button onClick={e => this.undoAction() }>undo</button> <span></span>
+                <button onClick={e => this.resetState() }>clear</button>
             </div>
         );
     }
     resetState() {
-        this.props.store.dispatch({ type: 'LOAD', state: this.props.defaultState });
+        this.props.store.dispatch({ type: "LOAD", state: this.props.defaultState });
         this.props.actions.length = 0;
     }
     replayActions() {
-        var snapshot = this.props.actions.slice(0);
+        const snapshot = this.props.actions.slice(0);
         this.resetState();
 
         snapshot.forEach((action, i) =>
             setTimeout(() => this.props.store.dispatch(action), 10 * i));
     }
     undoAction() {
-        var snapshot = this.props.actions.slice(0, this.props.actions.length - 1);
+        const snapshot = this.props.actions.slice(0, this.props.actions.length - 1);
         this.resetState();
         snapshot.forEach(action => this.props.store.dispatch(action));
     }
 }
 ```
 
-ActionPlayer also displays the number of Actions sent:
+ActionPlayer 也显示有多少个Action被触发了： 
 
-![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/shapes-actions.png)
+![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/shapes-actions.png)
 
 #### resetState
 
-Clearing our App back to its original state doesn't get much easier, just load the apps `defaultState` and
-clear the saved actions. 
+清空我们的应用回到最原始的状态不能再简单了，就只有重新加载`defaultState`并清除保存的actions。 
 
 #### undoAction
 
-If the only thing our App captured were actions sent then we'll need to resort to an inefficient poor man's 
-Undo of just replaying back every action except the last one. Fortunately thanks to the JavaScript VM 
-performance wars this work is usually instant - making it look like we've implemented it properly :)
+因为我们的应用捕获了所有的Action，撤销的动作，我们是通过将之前的所有Action重新再执行一遍，但不包括最后一个的方式来实现。这看上去效率很低，不过Javascript的VM 性能还不错，所以看上去也还好--就像我们真的实现了撤销一样：）
 
-### [app.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example07/app.tsx)
 
-After having implemented all the modules that make up our App, the only things left is the parent Container 
-glue hosting all parts together and our Redux reducer function, implementing all action state transitions.
+### [app.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example07/app.tsx)
+
+在实现了所有的模块之后，剩下的一件事情就是我们父容器了，用于挂载所有的组件和Redux Reducer函数，实现所有action的状态转换
+
 
 ### Application Reducers
 
-The implementation of the reducer function is typical for that of a Redux app with a switch statement to 
-handle each action type. Without Babel's spread object operator, ES6's `Object.assign()` is the next best
-thing, merging properties from multiple objects together into the first argument with properties on the right 
-taking highest precedence. By using a new `{}` object for our merge target we avoid mutating existing objects
-and maintain Redux's immutability contract. Although it's worth pointing out that we don't need immutability 
-at this stage, our App would still function the same (including Action replay) if our reducer mutated 
-existing state provided that we reset with a new defaultState object. Although there are performance, 
-utility and predictability benefits for retaining immutability so it's still something you'll want to adhere to. 
+通过switch状态来处理每个action的type属性是实现reducer函数的经典方式。不能用对象展开方法，使用`Object.assign()` 也许是最好的方式了，但是它是ES6的特性，并非所有的浏览器都支持。为此我们之前有介绍安装工具包或者使用polyfill来实现，在本文的示例中使用了polyfill。
+我们在reducer中处理state的变化，使用 Object.assign() 新建了一个副本。但不能这样使用 Object.assign(state, { visibilityFilter: action.filter })，因为它会改变第一个参数的值。你必须把第一个参数设置为空对象`{}`。
 
-A benefit of Redux single App state model is visible from the trivial implementation required to **LOAD** our 
-application to a given state:
+
+我们看到我们不需要一个特殊的Redux函数去做这个事情，我们通过在action消息中传递一个简单的参数，就能轻易地让我们的reducer函数返回期望的state。
 
 ```typescript
-case 'LOAD':
-    return action.state;
-```
 
-Showing we don't need a special Redux function to do this, we can simply have our reducer return our desired 
-state that we can pass as a normal argument in our action message.
 
-```typescript
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider, connect } from 'react-redux';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { createStore } from "redux";
+import { Provider, connect } from "react-redux";
 
-import Counter from './Counter';
-import ActionPlayer from './ActionPlayer';
-import ShapeMaker from './ShapeMaker';
-import ShapeViewer from './ShapeViewer';
-import { ColorPicker } from './ColorPicker';
+import Counter from "./counter";
+import ActionPlayer from "./actionplayer";
+import ShapeMaker from "./shapemaker";
+import ShapeViewer from "./shapeviewer";
+import { ColorPicker } from "./colorpicker";
+
+import "./objectassign";
 
 var actions = [];
-var defaultState = { nextShapeId:0, width: 100, height: 100, color:"#000000", shapes:[] };
+var defaultState = { nextShapeId: 0, width: 100, height: 100, color: "#000000", shapes: [] };
 
 let store = createStore(
     (state, action) => {
         actions.push(action);
+        let shape;
         switch (action.type) {
-            case 'COUNTER_CHANGE':
+            case "COUNTER_CHANGE":
                 return Object.assign({}, state, { [action.field]: state[action.field] + action.by });
-            case 'COLOR_CHANGE':
+            case "COLOR_CHANGE":
                 return Object.assign({}, state, { color: action.color });
-            case 'SHAPE_ADD':
-                var id = state.nextShapeId;
-                var shape = Object.assign({}, { id: id }, action);
-                delete shape['type'];
+            case "SHAPE_ADD":
+                const id = state.nextShapeId;
+                shape = Object.assign({}, { id: id }, action);
+                delete shape["type"];
                 return Object.assign({}, state, { nextShapeId: id + 1, shapes: [...state.shapes, shape] });
-            case 'SHAPE_CHANGE':
-                var shape = Object.assign({}, state.shapes.filter(x => x.id === action.id)[0],
+            case "SHAPE_CHANGE":
+                shape = Object.assign({}, state.shapes.filter(x => x.id === action.id)[0],
                     { top: action.top, left: action.left });
                 return Object.assign({}, state,
                     { shapes: [...state.shapes.filter(x => x.id !== action.id), shape] });
-            case 'LOAD':
-                return action.state;
+            case "LOAD":
+                return action.state; 
             default:
                 return state;
         }
     },
     defaultState);
 
-class ColorWrapperBase extends React.Component<any,any> {
+class ColorWrapperBase extends React.Component<any, any> {
     render() {
         return <ColorPicker color={this.props.color} onChange={this.props.setColor} />;
     }
@@ -1250,77 +1245,75 @@ class ColorWrapperBase extends React.Component<any,any> {
 
 const ColorWrapper = connect(
     (state) => ({ color: state.color }),
-    (dispatch) => ({ setColor: (color) => dispatch({ type:'COLOR_CHANGE', color })})
+    (dispatch) => ({ setColor: (color) => dispatch({ type: 'COLOR_CHANGE', color }) })
 )(ColorWrapperBase);
 
 ReactDOM.render(
     <Provider store={store}>
         <table>
             <tbody>
-            <tr>
-                <td style={{ width: 220 }}>
-                    <Counter field="width" step={10} />
-                    <Counter field="height" step={10} />
-                    <ColorWrapper />
-                </td>
-                <td style={{verticalAlign:"top", textAlign:"center", width:500}}>
-                    <h2>Preview</h2>
-                    <ShapeMaker />
-                </td>
-                <td style={{ verticalAlign: 'bottom' }}>
-                    <ActionPlayer store={store} actions={actions} defaultState={defaultState} />
-                </td>
-            </tr>
-            <tr>
-                <td colSpan={3}>
-                    <h2 style={{margin:5,textAlign:'center'}}>Shapes</h2>
-                    <ShapeViewer />
-                </td>
-            </tr>
+                <tr>
+                    <td style={{ width: 220 }}>
+                        <Counter field="width" step={10} />
+                        <Counter field="height" step={10} />
+                        <ColorWrapper />
+                    </td>
+                    <td style={{ verticalAlign: "top", textAlign: "center", width: 500 }}>
+                        <h2>Preview</h2>
+                        <ShapeMaker />
+                    </td>
+                    <td style={{ verticalAlign: 'bottom' }}>
+                        <ActionPlayer store={store} actions={actions} defaultState={defaultState} />
+                    </td>
+                </tr>
+                <tr>
+                    <td colSpan={3}>
+                        <h2 style={{ margin: 5, textAlign: 'center' }}>Shapes</h2>
+                        <ShapeViewer />
+                    </td>
+                </tr>
             </tbody>
         </table>
     </Provider>,
     document.getElementById("content"));
 ```
 
-And with that we have a working Shape Creator in its entirety:
+现在我们可以看到一个可工作的Shape生成器了，这是它的全貌：
 
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-07.png)](http://servicestackapps.github.io/typescript-redux/example07/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-07.png)](http://servicestackapps.github.io/typescript-redux/example07/)
 > Demo: [/typescript-redux/example07/](http://servicestackapps.github.io/typescript-redux/example07/)
 
-One point worth highlighting is that our top-level App is only ever rendered once as it's not contained
-within a parent component using `setState()` to modify state and trigger re-rendering. As a result we need
-to wrap our ColorPicker into a Redux-aware ColorWrapper which also maps our Redux state to its Component 
-properties as well as translating the `onChange` callback into dispatching the appropriate Redux action.
+有一点需要指出我们的顶级App只会绘制一次，因为它不包含在任何一个父组件，也没有调用`setState()`来改变state并触发重绘。所以我们需要包装一下我们的ColorPicker进一个`Redux-aware` ColorWrapper ，并且映射我们的Redux state到它的组件属性中，同样把`onChange` 转会成触发适当的Redux action
 
-## Refactoring Reducers
 
-There are a few areas in the classic Redux implementation above I believe we can improve upon with some 
-light refactoring and use of TypeScript's advanced language features. First thing on the refactor list is the
-large `switch` statement whose tight coupling and multiple exit points need eliminating:
+## 重构 Reducers
+
+原文中重构Reducers是使用了Typescript的一些高级特性，如装饰器等，但是我本身是拒绝这么做的，毕竟装饰器还是实验性的特性，将来会发生变化，
+这里的重构只是重新组织一下代码，并将原来的一堆`switch`拆分到不同的reducer函数中：
 
 ```typescript
-let store = createStore(
+let store = createStore( 
     (state, action) => {
         actions.push(action);
+        let shape;
         switch (action.type) {
-            case 'COUNTER_CHANGE':
+            case "COUNTER_CHANGE":
                 return Object.assign({}, state, { [action.field]: state[action.field] + action.by });
-            case 'COLOR_CHANGE':
+            case "COLOR_CHANGE":
                 return Object.assign({}, state, { color: action.color });
-            case 'SHAPE_ADD':
-                var id = state.nextShapeId;
-                var shape = Object.assign({}, { id: id }, action);
-                delete shape['type'];
+            case "SHAPE_ADD":
+                const id = state.nextShapeId;
+                shape = Object.assign({}, { id: id }, action);
+                delete shape["type"];
                 return Object.assign({}, state, { nextShapeId: id + 1, shapes: [...state.shapes, shape] });
-            case 'SHAPE_CHANGE':
-                var shape = Object.assign({}, state.shapes.filter(x => x.id === action.id)[0],
+            case "SHAPE_CHANGE":
+                shape = Object.assign({}, state.shapes.filter(x => x.id === action.id)[0],
                     { top: action.top, left: action.left });
                 return Object.assign({}, state,
                     { shapes: [...state.shapes.filter(x => x.id !== action.id), shape] });
-            case 'LOAD':
-                return action.state;
+            case "LOAD":
+                return action.state; 
             default:
                 return state;
         }
@@ -1328,10 +1321,9 @@ let store = createStore(
     defaultState);
 ```
 
-Instead of using Redux built-in 
-[combineReducers](http://rackt.org/redux/docs/api/combineReducers.html) for helping with modularity,
-my preference is to instead use a dictionary of action functions which I believe is the more readable and 
-flexible option. In the refactor I've also extracted reducers into a separate module, decoupling it from 
+这里没有使用Redux内置的 [combineReducers](http://rackt.org/redux/docs/api/combineReducers.html)来帮助我们模块化Reduxer,
+还是使用一种字典的方式来组织我们的函数，这样做我相信更加可阅读性和可扩展性更高。（事实上本例中使用combineReducers 会带来一些额外的问题，因为combineReducers中的Reducer分管state中的不同分支而互不影响，而此例中有些模块需要交互方式可能导致代码一定的冗余）
+
 **app.tsx**:
 
 ```typescript
@@ -1353,11 +1345,14 @@ let store = createStore(
     defaultState);
 ```
 
-#### [reducers.ts](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example08/reducers.ts)
+#### [reducers.ts](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example08/reducers.ts)
 
-The **reducers** module then just returns an object dictionary of action types and their respective implementations:
+**reducers** 模块就是返回一个action.type为key的字典对象，内容则是它们对应的处理函数 :
 
 ```typescript
+
+import "./objectassign";
+
 import { addShape, changeShape } from './reducers/shapeReducers';
 
 const changeCounter = (state, action) =>
@@ -1374,13 +1369,14 @@ export default {
     LOAD: (state, action) => action.state
 };
 ```
+使用命名函数让代码更具可读性并且让你独立地开发和测试每个reducer的实现。
+同时也讲几个相关的reducer封装进单独的模块中，就像这样: 
 
-Named functions improves readability and lets you develop and test each reducer implementation in isolation. 
-This approach also scales well as we can further modularize related reducers into cohesive modules as done in: 
-
-#### [shapeReducers.ts](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example08/reducers/shapeReducers.ts)
+#### [shapeReducers.ts](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/reducers/shapeReducers.ts)
 
 ```typescript
+import "../objectassign";
+
 export const addShape = (state, action) => {
     var id = state.nextShapeId;
     var shape = Object.assign({}, { id: id }, action);
@@ -1395,91 +1391,36 @@ export const changeShape = (state, action) => {
 };
 ```
 
-## Refactoring Redux Components
+## 重构 Redux 的组件
 
-There's also a few things we can do to improve on the Redux-connected Components which currently uses an 
-imperative `connect()` method to create our higher-level Redux-connected Components:
+这里还有一些事情需要我们去改进Redux-connected的组件，这些组件使用了`connect()`来创建我们更高级别的（其实是子类）Redux-connected 组件：
 
 ```typescript
-class ColorWrapperBase extends React.Component<any,any> {
+
+class ColorWrapperBase extends React.Component<any, any> {
     render() {
         return <ColorPicker color={this.props.color} onChange={this.props.setColor} />;
     }
 }
 
-const ColorWrapper = connect(
+export const ColorWrapper = connect(
     (state) => ({ color: state.color }),
-    (dispatch) => ({ setColor: (color) => dispatch({ type:'COLOR_CHANGE', color })})
+    (dispatch) => ({ setColor: (color) => dispatch({ type: "COLOR_CHANGE", color }) })
 )(ColorWrapperBase);
 ```
 
-I dislike how implementations are disconnected from the Component's class declaration it applies to, 
-how it needs to be defined after the class declaration instead of above to match how it conceptually works. 
+注：原文中作者说不喜欢通过这种方式（离开组件类声明，去改变组件的行为）来改变原来组件的实现，然后再接下来的章节中，叙述如果通过Typescript的装饰器功能来改造，但是我暂时并不同意这种观点，在Typescript中装饰器本身是比较晦涩的语法糖，而且还只是实验性的功能特性，在我们还没有非常熟练掌握的情况下，还是应该谨慎处理，而且我还觉得使用`connect()`的方式，并没有什么不妥。如果你对装饰器的部分非常感兴趣，可以去原文看看怎么实现的。
 
-If we instead extracted the implementations into separate `mapStateToProps` and `mapDispatchToProps` named 
-functions it adds readability but then creates even more moving parts and naming clashes making it harder 
-to reuse the same recipe for creating other Redux Components in the same file.
 
-The `connect()` method is also an imperatively unnatural way to define a new Component which otherwise uses 
-class declarations. It's also less readable where the source code reads as: 
+### 带有语法绑定的方法
 
-> Use connect() to return a Factory constructor function that needs to be immediately invoked with your base 
-Component to return a new Component that replaces your existing Component which is now an interim artifact 
-to be disregarded.
+在React Apps中 [PureRenderMixin](https://facebook.github.io/react/docs/pure-render-mixin.html)通过检查和监听组件的props或state的变更来阻止一些不必要的重绘，这样能有效地改善应用程序的性能。
+ 
+顺便说一句，Redux `connect()`的方法自动就能够判断是否需要更新组件，通过映射对象关联比较和判断状态是否发生了变化。
 
-### TypeScript Decorators
 
-Whilst it's still workable, there's a better way to create Redux Components by leveraging the 
-[Decorators proposal](https://github.com/wycats/javascript-decorators/blob/master/README.md) that's an
-available feature that can be enabled with the `experimentalDecorators` TypeScript compiler option. 
-Currently there's no UI for this option in Visual Studio, so to enable it you'll need to edit your `.csproj` 
-and add the option manually:
 
-```xml
-<TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
-```
-
-When enabled this lets you create and use decorators that despite being simple functions provide an easy way 
-to compose behavior, dramatically reduce repetitive boilerplate and improve readability as seen with the 
-[@reduxify()](https://github.com/ServiceStackApps/typescript-redux/blob/661f9fcc1ce6c4a7b66064ce3511033d37a26d99/src/TypeScriptRedux/src/example08/core.ts#L18)
-decorator which just delegates to Redux connect():
-
-```typescript
-export function reduxify(mapStateToProps?: MapStateToProps,
-    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject) {
-    return target => connect(mapStateToProps, mapDispatchToProps)(target);
-}
-```
-
-With just this simple change we get the ideal declarative API we want for defining Redux-connected Components 
-which are now defined in a single unit, with property mapping functions declared above the class declaration 
-and all interim artifacts abstracted away:
-
-```typescript
-@reduxify(
-    (state) => ({ color: state.color }),
-    (dispatch) => ({ setColor: (color) => dispatch({ type: 'COLOR_CHANGE', color }) })
-)
-class ColorWrapper extends React.Component<any,any> {
-    render() {
-        return <ColorPicker color={this.props.color} onChange={this.props.setColor} />;
-    }
-}
-```
-
-### Methods with Lexical bindings
-
-Something that can have a dramatic performance improvement in React Apps is the 
-[PureRenderMixin](https://facebook.github.io/react/docs/pure-render-mixin.html) which prevents unnecessary
-re-rendering of a Component by checking to see if the props or state of a pure Component has changed. 
-Incidentally this is something that Redux `connect()` provides automatically that thanks to immutability is 
-able to do a shallow and faster object reference comparison to determine if state has changed and a Component 
-needs updating.
-
-Something that can break identity comparisons are function callbacks in ES6 classes as in order to retain
-lexical `this` binding, we'd need to use the 
-[fat arrow syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
-at the call-site:
+通过[fat arrow syntax（箭头函数语法））](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)你可以轻松的绑定javascript中的this对象到函数中，而且不需要考虑怎么绑定:
 
 ```typescript
 export class NumberPicker extends React.Component<any, any> {
@@ -1499,12 +1440,7 @@ export class NumberPicker extends React.Component<any, any> {
     }
 }
 ``` 
-
-The problem with this is that a new 
-[function identity](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f#9bed)
-is created each time invalidating property comparisons and potential Pure Render optimizations. 
-
-An easy workaround is to use the fat arrow syntax when defining your methods:
+这样写的问题是类似在循环中声明函数一样，一旦属性无效后，箭头函数的声明就会被重新执行一次，这样就会有些性能方面的问题，一个简单地方式来改善这个问题，只需要这样定义你的箭头函数：
 
 ```typescript
 export class NumberPicker extends React.Component<INumberProps, any> {
@@ -1525,17 +1461,12 @@ export class NumberPicker extends React.Component<INumberProps, any> {
 }
 ```
 
-`handleChange` now retains lexical `this` references allowing the same instance to be safely used.
 
-## [Example 8 - Time Travelling using State Snapshots](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example08)
+## [Example 8 - 通过状态快照实现时间旅行](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example08)
 
-In this example we'll replace `ActionPlayer` with a more complete implementation using App state snapshots. 
-By using state we can implement richer History functionality complete with back, forward and any point in time 
-navigation that we can fluently control with a slider enabling a "Time Travelling" experience to simulate
-going back and forward throughout an App's users session.
+在这个实例中我们讲通过一个应用State快照更加完整实现替换`ActionPlayer`。通过使用state我们可以实现更加丰富的历史功能，包括回退，前进，和指定某个时间点的导航，就像我们控制进度条一样进行一次『实现旅行』体验模拟后退和前进 
 
-To make it more reusable the history state management is encapsulated behind a formal API with basic operations
-to navigate, reset and push the current state that gets added to by our reducer:
+为了让历史状态管理更加可服用一点，它被封装成一个相似的API，包括基本的操作包括导航、重设，添加现在的状态等等：
 
 #### [app.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example08/app.tsx)
 
@@ -1566,21 +1497,39 @@ let store = createStore(
             : state;
 
         if (action.type !== 'LOAD')
-            history.pushState(nextState);
+         {
+             history.pushState(nextState);
+             console.log(history);
+         }   
 
         return nextState;
     },
     defaultState);
 ```
 
-#### [History.tsx](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/src/example08/History.tsx)
+#### [History.tsx](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example08/History.tsx)
 
-By saving and restoring entire state snapshots the implementation for our History control becomes surprisingly 
-straight-forward, essentially it comes down to dispatching a **LOAD** action with the desired state:
+通过保存和重置整个状态快照来实现我们的历史控制器，这非常的直接了当，基本上通过触发 **LOAD** action 来销毁之前保存的所有state，（注:这里没有像原文中使用装饰器，而是传统的方式，这组件有个问题，就是本身的数据并不是state的部分，但是又需要再state变化的时候，同步刷新，所以需要订阅store的变化来强制刷新)：
 
 ```typescript
-@subscribeToStore()
+
+import * as React from 'react';
+
+
+// History 本身的数据不由 State 管理，但是又要在State变化的时候重绘 
 export default class History extends React.Component<any, any> {
+    context: any;
+    static contextTypes = {
+        store: React.PropTypes.object
+    }
+    private unsubscribe: Function;
+    componentDidMount() {
+        this.unsubscribe = this.context.store.subscribe(() => this.forceUpdate());
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     render() {
         return (
             <div>
@@ -1603,510 +1552,41 @@ export default class History extends React.Component<any, any> {
         );
     }
     resetState = () => {
-        this.props.store.dispatch({ type: 'LOAD', state: this.props.defaultState });
+        this.context.store.dispatch({ type: 'LOAD', state: this.props.defaultState });
         this.props.history.reset();
     }
     replayStates = () => {
         this.props.history.states.forEach((state, i) =>
-            setTimeout(() => this.props.store.dispatch({ type: 'LOAD', state }), 10 * i));
+            setTimeout(() => this.context.store.dispatch({ type: 'LOAD', state }), 10 * i));
     }
     prevState = () => {
-        this.props.store.dispatch({ type: 'LOAD', state: this.props.history.prev() });
+        this.context.store.dispatch({ type: 'LOAD', state: this.props.history.prev() });
     }
     nextState = () => {
-        this.props.store.dispatch({ type: 'LOAD', state: this.props.history.next() });
+        this.context.store.dispatch({ type: 'LOAD', state: this.props.history.next() });
     }
     goToState = (event) => {
         const e = event.target as HTMLInputElement;
-        this.props.store.dispatch({ type: 'LOAD', state: this.props.history.goTo(parseInt(e.value)) });
+        this.context.store.dispatch({ type: 'LOAD', state: this.props.history.goTo(parseInt(e.value)) });
     }
 }
+
 ```
 
-Our Example now sports richer History capabilities complete with a fun "Time Travelling" slider :)
+现在我们的实例已经支持丰富的历史功能了:)
 
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-08.png?)](http://servicestackapps.github.io/typescript-redux/example08/)
+
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-08.png)](http://servicestackapps.github.io/typescript-redux/example08/)
 > Demo: [/typescript-redux/example08/](http://servicestackapps.github.io/typescript-redux/example08/)
 
-### [Implementing Undo History](http://rackt.org/redux/docs/recipes/ImplementingUndoHistory.html)
+### [改进撤销功能](http://rackt.org/redux/docs/recipes/ImplementingUndoHistory.html)
 
-If you're adding undo/redo functionality to your Redux applications you're more likely going to want to apply
-it to independent parts of your application rather than rolling back your entire App's state, luckily the 
-[redux docs have you covered](http://rackt.org/redux/docs/recipes/ImplementingUndoHistory.html)
-with an example inspired by Elm's [undo-redo package](http://package.elm-lang.org/packages/TheSeamau5/elm-undo-redo/2.0.0).
+如果正在给你的Redux应用程序添加撤销/重做功能，你肯定期望能够回退独立组件的变化的部分，而不是整个应用的state，非常幸运 这篇文章：[redux docs have you covered](http://rackt.org/redux/docs/recipes/ImplementingUndoHistory.html) 利用 Elm的[undo-redo package](http://package.elm-lang.org/packages/TheSeamau5/elm-undo-redo/2.0.0)编写了一个撤销的实例。
 
-## [Example 9 - Real-time Networked Time Traveller](https://github.com/ServiceStackApps/typescript-redux/tree/master/src/TypeScriptRedux/src/example09)
 
-Loading Redux Snapshots as seen in the previous example illustrates some of the natural capabilities available 
-when adopting a data-flow architecture like Redux - utilizing simple actions for transitioning between 
-immutable states. 
+注：原文中，作者还提供了一个多个客户端交互的示例程序，因为涉及到服务端的编码，主要是StackService本身（.NET的一个webapi框架）的实现，所以省略了，后续有空我再编写一个Nodejs实现的部分吧，如果机会的话。。我相信你懂的 ，或者可以先看下原文吧。
 
-### Saving and Restoring App State
 
-A major benefit of maintaining both state and actions in plain JavaScript objects we've yet to explore is how 
-they're naturally serializable. The obvious benefit is that the entire Application state can be trivially 
-saved and restored from localStorage, maintaining a user's session across multiple browser restarts:
-
-```javascript
-//Save App State
-localStorage.setItem("appState", JSON.stringify(store.getState()));
-
-//Restore App State
-let store = createStore(rootReducer, 
-    JSON.parse(localStorage.getItem("appState")) || defaultState);
-```
-
-### Transferring State over a Network
-
-Another example of the benefits is how easy it would be to transfer your application state to other users over 
-a network. Actions are similar to diffs, i.e. minimal instructions capturing change between different states. 
-So in theory we could just stream the actions to users over a network and they will be able to see changes we 
-make in real-time. 
-
-Adding support for this ends up being fairly trivial, the main architectural hurdle is how can we communicate
-between users over HTTP in real-time. In desktop apps we can establish a direct network connection, but on a 
-website, communications need to go via a central server. There are a few ways to enable real-time communications
-over a website: polling, web sockets and server sent events. Of these options 
-[Server Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)
-offers a 
-[simple, efficient and natural fit for HTTP](https://github.com/ServiceStack/ServiceStack/wiki/Server-Events) 
-which we'll utilize here.
-
-#### Example Objectives
-
-Our objectives for this example is to provide a list of active users currently viewing the website that we 
-want to enable other users to be able to **Connect** to and be able to **watch** what they're doing, i.e. 
-similar to Remote Desktop into another computer's screen. Conceptually for this to work we just need to load a 
-user's **initial state** then **listen** to a **stream of their actions** (generated as they're using the app). 
-We also want to allow users to **disconnect** from a user's session and take over from where they left off.
-
-#### Implementation utilizing Server Events
-
-To enable this we'll have every user listen to a common **home** channel that we can query to find active
-users and get notified as new users come and go. We'll then have each user re-publish a stream of their 
-actions on their own **user channel** which multiple users can listen on to receive a stream of their actions.
-To disconnect they can just unsubscribe from the **users channel**. Finally since the user's state is 
-maintained in a Redux store (in their browser and not on the server) we also need to facilitate communication 
-between users which we enable by sending a **direct message** to a user who can **reply** via a direct message 
-back, with their current state.
-
-Surprisingly most of the code to make this happen is encapsulated within the React `<Connect />` component below:
-
-```typescript
-/// <reference path='../../typings/browser.d.ts'/>
-
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { reduxify } from './core';
-import 'jquery';
-import 'ss-utils';
-
-declare var EventSource:ssutils.IEventSourceStatic;
-
-export default class Connect extends React.Component<any, any> {
-
-    constructor(props?, context?) {
-        super(props, context);
-        this.state = {
-            channels: ["home"], currentUser: null, users: [], 
-            connectedToUserId: null, connectedUserActions: [], connectedStateIndex: -1
-        };
-        var source = new EventSource(serverEventsUrl());
-        $(source).handleServerEvents({
-            handlers: {
-                onConnect: (currentUser) => {
-                    currentUser.usersChannel = userChannel(currentUser.userId);
-                    this.setState({currentUser, users: filterUsers(this.state.users,currentUser.userId)});
-                    this.props.onConnect(currentUser);
-                },
-                onJoin: () => this.refreshUsers(),
-                onLeave: () => this.refreshUsers(),
-                onUpdate: (user) => this.setState({
-                     users: this.state.users.map(x => x.userId === user.userId ? user : x)
-                }), 
-                getState: (json, e) => {
-                    var o = JSON.parse(json);
-                    var index = o.stateIndex || this.props.history.stateIndex;
-                    var state = this.props.history.states[index];
-                    $.ss.postJSON(`/send-user/${o.replyTo}?selector=cmd.onState`, state);
-                },
-                onState: (json, e) => {
-                    this.props.store.dispatch({ 
-                        type:'LOAD', state:json ? JSON.parse(json) : this.props.defaultState });
-                },
-                publishAction: (json, e) => {
-                    var action = JSON.parse(json);
-                    this.props.store.dispatch(action);
-                }
-            }
-        });
-    }
-
-    render() {
-        if (this.state.currentUser == null) return null;
-        return (
-            <div>
-                <div style={{fontWeight:"bold"}}>
-                    {this.renderUser(this.state.currentUser)}
-                </div>
-                <div style={{padding:"8px 0", textAlign:"center", fontSize:"18px"}}>
-                    {this.state.users.length} users online:
-                </div>
-                
-                { this.state.users.map(u => this.renderUser(u)) }
-
-                <div style={{textAlign:"center", padding:"10px 0"}}>
-                    { this.state.connectedToUserId ? <button onClick={e => this.disconnect()}>disconnect</button> : null}
-                </div>
-            </div>
-        );
-    }
-
-    renderUser(u) {
-        return (
-            <div key={u.userId} onClick={e => this.connectToUser(u.userId)} style={{
-                cursor:"pointer", padding:"4px",
-                background:u.userId === this.state.connectedToUserId ? "#ffc" :  ""
-            }}>
-                <img src={u.profileUrl} style={{height:24,verticalAlign:"middle"}} />
-                <span style={{padding:"2px 5px" }}>
-                    {u.displayName} {u.userId === this.state.currentUser.userId ? " (me)" : ""}
-                </span>
-            </div>
-        );
-    }
-
-    connectToUser(userId) {
-        if (userId === this.state.currentUser.userId) return;
-
-        this.requestUsersState(userId);
-        var connectedChannels = this.state.channels.filter(x => x !== "home");
-        $.ss.updateSubscriber({
-            SubscribeChannels: userChannel(userId), 
-            UnsubscribeChannels: connectedChannels.join(',')
-        }, r => {
-            this.setState({
-                channels:r.channels, 
-                connectedToUserId: userId
-            });
-        });
-    }
-
-    disconnect() {
-        $.ss.unsubscribeFromChannels([userChannel(this.state.connectedToUserId)]);
-        this.setState({ connectedToUserId: null });
-    }
-
-    requestUsersState(userId) {
-        return $.ss.postJSON(`/send-user/${userId}?selector=cmd.getState`,
-            { replyTo: this.state.currentUser.userId });
-    }
-
-    refreshUsers() {
-        $.getJSON("/event-subscribers?channels=home", users => {
-            this.setState({ users:filterUsers(users, this.state.currentUser.userId) });
-        });
-    }
-}
-
-const userChannel = (userId) => "u_" + userId; 
-
-const filterUsers = (users, userId) => 
-    users.filter(x => x.userId !== userId).sort((x,y) => x.userId.localeCompare(y.userId));
-```
-
-We'll go through some of the core parts to explain how this works. For the Server implementation we'll
-use ServiceStack's 
-[Server Events](https://github.com/ServiceStack/ServiceStack/wiki/Server-Events) 
-which includes an easy to use
-[JavaScript Client](https://github.com/ServiceStack/ServiceStack/wiki/JavaScript-Server-Events-Client)
-that simplifies the effort required to process Server Events.
-
-ServiceStack Server Events doesn't expose any APIs for publishing messages to users out-of-the-box, instead 
-access needs to be controlled by explicit Services. For this example we need a back-end Service that lets users 
-publish their actions to a channel and another Service to send a direct message to a User. The 
-[entire implementation](https://github.com/ServiceStackApps/typescript-redux/blob/master/src/TypeScriptRedux/Global.asax.cs)
-for both these services are below: 
-
-```csharp
-//Services Contract
-[Route("/publish-channel/{Channel}")]
-public class PublishToChannel : IReturnVoid, IRequiresRequestStream
-{
-    public string Channel { get; set; }
-    public string Selector { get; set; }
-    public Stream RequestStream { get; set; }
-}
-
-[Route("/send-user/{To}")]
-public class SendUser : IReturnVoid, IRequiresRequestStream
-{
-    public string To { get; set; }
-    public string Selector { get; set; }
-    public Stream RequestStream { get; set; }
-}
-
-//Services Implementation
-public class ReduxServices : Service
-{
-    public IServerEvents ServerEvents { get; set; }
-
-    public void Any(PublishToChannel request)
-    {
-        var msg = request.RequestStream.ReadFully().FromUtf8Bytes();
-        ServerEvents.NotifyChannel(request.Channel, request.Selector, msg);
-    }
-
-    public void Any(SendUser request)
-    {
-        var msg = request.RequestStream.ReadFully().FromUtf8Bytes();
-        ServerEvents.NotifyUserId(request.To, request.Selector, msg);
-    }
-}
-```
-
-Essentially just using the `IServerEvents` dependency to forward the JSON Request Body to the specified 
-channel or user.
-
-### Connecting to Server Events
-
-The JavaScript client to connect to Server Events is in the `ss-utils` npm package which we can install with:
-
-    C:\proj> jspm install ss-utils
-
-Then import the type definitions with:
-
-    C:\proj> typings install ss-utils --ambient --save
-
-As there are no built-in type definitions for HTML 5's 
-[EventSource](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) the easiest way to make use of it
-in TypeScript is to use the definition in ss-utils which we declare with:
-
-```typescript
-declare var EventSource:ssutils.IEventSourceStatic;
-```
-
-To make a server connection we configure the `EventSource` object with the url of the server events stream.
-ServiceStack also lets you specify any initial channels you want to connect to with a queryString:
-
-```typescript
-var source = new EventSource("/event-stream?channels=home");
-```
-
-Then we use ss-utils `handleServerEvents()` jQuery function to connect to the event stream and handle any events.
-The first 4 events are automatically available by ServiceStack, for notifying when:
-
-  - **onConnect** - you've connected to the server event stream
-  - **onJoin** - a user has joined a channel you're subscribed to
-  - **onLeave** - a user has left a channel you're subscribed to
-  - **onUpdate** - an existing user has changed the channels they've subscribed to
-
-The remaining handlers are for application events used in this example to handle when:
-
-  - **getState** - we're requested for our current state
-  - **onState** - the user we're connected to responds with their state
-  - **publishAction** - the user we're connected to publishes an action
-
-```typescript
-$(source).handleServerEvents({
-    handlers: {
-        //Built-in subscription Life-cycle events
-        onConnect: (currentUser) => {
-            currentUser.usersChannel = userChannel(currentUser.userId);
-            this.setState({currentUser, users: filterUsers(this.state.users,currentUser.userId)});
-            this.props.onConnect(currentUser);
-        },
-        onJoin: () => this.refreshUsers(),
-        onLeave: () => this.refreshUsers(),
-        onUpdate: (user) => this.setState({
-            users: this.state.users.map(x => x.userId === user.userId ? user : x)
-        }),
-
-        //If we receive a request for our state, send a reply with our current state
-        getState: (json, e) => {
-            var o = JSON.parse(json);
-            var index = o.stateIndex || this.props.history.stateIndex;
-            var state = this.props.history.states[index];
-            $.ss.postJSON(`/send-user/${o.replyTo}?selector=cmd.onState`, state);
-        },
-        
-        //When we receive state reply from our connected user, load it         
-        onState: (json, e) => {
-            this.props.store.dispatch({ 
-                type:'LOAD', state:json ? JSON.parse(json) : this.props.defaultState });
-        },
-        
-        //When we receive an action from the connected user, forward it to the redux store
-        publishAction: (json, e) => {
-            var action = JSON.parse(json);
-            this.props.store.dispatch(action);
-        }
-    }
-});
-```
-
-To maintain an active users list, we query the event subscribers that are connected to the **home** channel 
-(that everyone is initially connected to) with:
-
-```typescript
-refreshUsers() {
-    $.getJSON("/event-subscribers?channels=home", users => {
-        this.setState({ users: filterUsers(users, this.state.currentUser.userId) });
-    });
-}
-
-//Exclude ourselves from the returned list and order the users by their id
-const filterUsers = (users, userId) => 
-    users.filter(x => x.userId !== userId).sort((x,y) => x.userId.localeCompare(y.userId));
-```
-
-To **connect** to a user, we first request their initial state then update our current server events 
-subscription to join the new **users channel**. If we we're connected to an existing user we also want to 
-unsubscribe from their users channel at the same time:
-
-```typescript
-connectToUser(userId) {
-    if (userId === this.state.currentUser.userId) return;
-
-    this.requestUsersState(userId);
-    var connectedChannels = this.state.channels.filter(x => x !== "home");
-    $.ss.updateSubscriber({
-        SubscribeChannels: userChannel(userId), 
-        UnsubscribeChannels: connectedChannels.join(',')
-    }, r => {
-        this.setState({
-            channels:r.channels, 
-            connectedToUserId: userId
-        });
-    });
-}
-
-const userChannel = (userId) => "u_" + userId; 
-```
-
-To request a user's state we call the `SendUser` back-end service with the `userId` we want to send to,
-the `getState` handler we want to invoke and add pass our userId in the `replyTo` property of the message
-request body:
-
-```typescript
-requestUsersState(userId) {
-    return $.ss.postJSON(`/send-user/${userId}?selector=cmd.getState`,
-        { replyTo: this.state.currentUser.userId });
-}
-```
-
-The last feature to implement is disconnecting from a user which just involves unsubscribing from their 
-users channel and updating our state:
-
-```typescript
-disconnect() {
-    $.ss.unsubscribeFromChannels([userChannel(this.state.connectedToUserId)]);
-    this.setState({ connectedToUserId: null });
-}
-```
-
-That's it for the core functionality! The only other change needed is to refactor our Redux store to
-publish each action we create to our **users channel** so it applies the action to all our connected users.
-
-As this is a network side-effect we want to keep it out of our reducer implementation and make it a pure
-function. The recommended way to do this is to use 
-[Redux middleware](http://redux.js.org/docs/advanced/Middleware.html)
-which lets you generically handle updates to the Redux store:
-
-```typescript
-var currentUser;
-const onConnect = (user) => currentUser = user;
-
-const updateHistory = store => next => action => {
-    var result = next(action);
-
-    if (action.type !== 'LOAD') {
-        history.pushState(store.getState());
-    }
-
-    $.ss.postJSON(`/publish-channel/${currentUser.usersChannel}?selector=cmd.publishAction`, action);
-
-    return result;
-};
-
-let store = createStore(
-    (state, action) => {
-        var reducer = reducers[action.type];
-        var nextState = reducer != null
-            ? reducer(state, action)
-            : state;
-
-        return nextState;
-    },
-    defaultState,
-    applyMiddleware(updateHistory));
-```
-
-There's currently an [outstanding issue with redux TypeScript definition](https://github.com/reactjs/redux/pull/1413)
-that makes the method signature of `applyMiddleware` incompatible with what `createStore` accepts. Until
-a new TypeScript definition is released you'll need to manually edit `typings/browser/ambient/redux/redux.d.ts`
-and replace the applyMiddleware definition from:
-
-    function applyMiddleware(...middlewares: Middleware[]): Function;
-
-to:
-
-    function applyMiddleware(...middlewares: Middleware[]): () => any;
-
-
-And with that we're done, we've now converted Shape Creator into a networked time traveller letting us connect
-to active users and watch their live session in real-time - the Time Slider is now x Connected Users more fun :)
-
-[![](https://raw.githubusercontent.com/ServiceStackApps/typescript-redux/master/img/preview-09.png)](http://redux.servicestack.net)
-> Demo: [http://redux.servicestack.net](http://redux.servicestack.net)
-
-## JSPM Bundling for Production
-
-One of the nice features of using JSPM is that it's also able to bundle your entire applicaton using your 
-declared module dependencies, saving having to repeat and manage this information in an external bundler tool. 
-
-To package your App for production run `jspm bundle` on your main app with the `-m` flag to minify your 
-application, e.g we can package our last example with: 
-
-    C:\proj> jspm bundle -m src/example09/app app.js 
-
-JSPM still requires the `system.js` module loader and your local JSPM `config.js` which maintains your 
-installed npm dependencies. The resulting `index.html` then becomes a container for our compiled application:
-
-```html
-<html>
-<head>
-    <title>TypeScript + JSPM + React + Redux</title>
-    <script src="jspm_packages/system.js"></script>
-    <script src="config.js"></script>
-    <script src="app.js"></script>
-</head>
-<body>
-    <h1>Redux Shape Creator</h1>
-    <div id="content"></div>
-
-    <script>
-        System.import("./src/example09/app");
-    </script>
-</body>
-</html>
-```
-
-## [ServiceStack TypeScript React VS.NET Template](https://github.com/ServiceStackApps/typescript-react-template/)
-
-As the technologies used in this guide represent today's best-in-class choices for developing rich, complex
-JavaScript Apps within VS.NET, we've encapsulated them together into ServiceStack's new
-[TypeScript React VS.NET Template](https://github.com/ServiceStackApps/typescript-react-template/)
-providing an instant integrated client and .NET server solution so you're immediately productive out-of-the-box. 
-It's also provides an optimal iterative development experience with the pre-configured Gulp tasks taking care of 
-effortlessly packaging, bundling and deploying your production-optimized App 
-[directly from VS.NET's Task Runner Explorer](https://github.com/ServiceStackApps/typescript-react-template/#networkedshapecreator-project). 
-
-## Feedback
-
-We hope you've found this guide useful and it helps spur some ideas of what you can create with these simple 
-and powerful technologies in your next App. We welcome any enhancements via pull-requests, otherwise feel free
-to drop feedback to [@demisbellot](https://twitter.com/demisbellot). 
 
 
   [1]: https://webpack.github.io
