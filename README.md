@@ -1,24 +1,21 @@
 
-
-注：本文的原始资料和示例来自 [ServiceStackApps/typescript-redux](https://github.com/ServiceStackApps/typescript-redux) ,根据我的实际情况，做了一些调整，详见文内说明，感谢原作者的无私分享。
+注：本文的原始资料和示例来自[ServiceStackApps/typescript-redux][1] ,根据我的实际情况，做了一些调整，详见文内说明，感谢原作者的无私分享。
 
 本文通过设置，运行和探索Javascript一些高级的技术栈：
 
-  - [TypeScript](http://www.typescriptlang.org/) - 具备类型的Javascript超集, 提供一些高级别的语法特性（注：真正的面向对象等）和部分ES5的支持
-  - [typings](https://github.com/typings/typings) - 用于搜索和安装TypeScript语法定义的包管理器
-  - [React](https://facebook.github.io/react/) - 简单，高性能的javascript UI层框架，利用虚拟DOM和应答数据流 
-  - [Redux](https://github.com/rackt/redux) - javascript 应用程序的状态管理框架，非常适合和React搭配使用
-  
-Providing a great base for the development of large-scale, JavaScript Apps that's further enhanced by a great 
-development experience within Visual Studio.
+  - [TypeScript][2] - 具备类型的Javascript超集, 提供一些高级别的语法特性（注：真正的面向对象等）和部分ES5的支持
+  - [typings][3] - 用于搜索和安装TypeScript语法定义的包管理器
+  - [React][4] - 简单，高性能的javascript UI层框架，利用虚拟DOM和应答数据流 
+  - [Redux][5] - javascript 应用程序的状态管理框架，非常适合和React搭配使用
+
 提供开发大型javascript应用程序强大的基础，并改进在Visual Studio中的开发体验（注：事实上，并非一定在Visual Studio中，其他的编辑器也是可以的）
 
 ## 安装 TypeScript
 
-如果你还没有从[typescriptlang.org](http://www.typescriptlang.org)下载安装最新版本的Typescript。Visual Studio的用户可以直接使用下面的链接快速安装：
+如果你还没有从[typescriptlang.org][6]下载安装最新版本的Typescript。Visual Studio的用户可以直接使用下面的链接快速安装：
 
- - [VS.NET 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)
- - [VS.NET 2013](https://www.microsoft.com/en-us/download/details.aspx?id=48739)
+ - [VS.NET 2015][7]
+ - [VS.NET 2013][8]
 
 > 本文已经默认你已经安装了TypeScript v1.8 或更高的版本
 
@@ -28,33 +25,34 @@ development experience within Visual Studio.
 
 虽然安装了 TypeScript VS.NET 扩展提供了，一个新的 **HTML Application with TypeScript** 项目模板，但是你最好还是通过创建一个 **Empty ASP.NET Web Application** 项目并配置项目支持Typescript -- 这比把它从Typescript转换成 ASP.NET Web项目要方便的多。.
 
-![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/01-empty-web-project.png)
+![新建项目模板][9]
 
 在接下来的界面 选择 **Empty** 模板来创建一个空模板:
 
-![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/02-empty-web-template.png)
+![新建空网站][10]
 
 ### 启用 TypeScript
 在项目的右键菜单`Add > TypeScript File`中添加一个 **TypeScript File** 文件就会自动配置的你Web项目 `.csproj` 文件，加上一些启用TypeScript 支持必须的导入项：
-![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/03-add-typescript-file.png)
+
+![新建Typescript文件][11]
 
 配置的时候会弹出对话框:
 
-![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/04-typescript-confirmation-dialog.png)
+![对话框][12]
 
-点击 **No** 来跳过使用Nuget对话框来安装Typing 定义文件，因为我们后面会使用[typings Package Manager](https://github.com/typings/typings) 来代替它安装定义文件.
+点击 **No** 来跳过使用Nuget对话框来安装Typing 定义文件，因为我们后面会使用[typings Package Manager][13] 来代替它安装定义文件.
 
 ### 配置 TypeScript
 
 在项目中第一激活TypeScript需要配置一些选项。VS.NET 2015 可以通过项目属性中的`Typescript Build`配置节来配置TypeScript的编译选项，这些信息将直接配置到VS的**.csproj**项目文件中，如下图所示：
-![TypeScript Properties Page]https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/05-configure-typescript-vs.png)
+
+![TypeScript Properties Page][14]
 
 不过我们更倾向于使用`tsconfig.json`的一个文本文件来配置这些选项，而且这个配置文件可以更好的适配到其他的编辑器/IDE中，更利于知识的分享，减少一些不必要的问题。
 
 在项目上右键`Add > New Item` 在打开的对话框中搜索 **typescript**，并选择 **TypeScript JSON Configuration File**  文件模板 来添加`tsconfig.json` 到你的项目中：
 
-
-![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/05-add-tsconfig.png)
+![add-tsconfig][15]
 
 这会添加一个基础的`tsconfig.json`配置文件到你的项目中，这些配置会替换掉你之前在`.csproj` 项目文件中配置的变量
 
@@ -102,9 +100,9 @@ Webpack 是德国开发者 Tobias Koppers 开发的模块加载器，它和传�
 
 事实上，我并非对它很熟悉，也只是参与了很多的资料，：） 你可以从下面的这些链接获取到一些有用的信息：
 
-- [官网][1]
-- [webpack入门指南][2]    
-- [Typescript 中文手册中的相关介绍][3]
+- [官网][16]
+- [webpack入门指南][17]    
+- [Typescript 中文手册中的相关介绍][18]
 
 安装 webpack本身非常方便，只要使用npm命令全局安装就可以了：
 
@@ -124,7 +122,8 @@ Webpack 是德国开发者 Tobias Koppers 开发的模块加载器，它和传�
 
 初始化项目的文件夹结构，之所以在这里说，是因为我们下面的配置文件会使用到对应的目录地址，建成后的目录结构如图所示：
 
-![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/06-folder-list.png)
+![06-folder-list.png][19]
+
 
 其中
 `source` 目录用于存放Typescript源代码文件(**本例中为了路径引用方便，我将HTML文件也放到里该目录下，实际项目中不用这么做**)
@@ -168,7 +167,7 @@ module.exports = {
 
 ```
 
-关于webpack.config.js中的详细说明，可参考[官方的说明][4]，其中`externals`配置节是用于排除，单独引用的reactjs类库，不打包进生成的文件，`entry`入口这里是示例，在下面的章节会替换成实际的内容。
+关于webpack.config.js中的详细说明，可参考[官方的说明][20]，其中`externals`配置节是用于排除，单独引用的reactjs类库，不打包进生成的文件，`entry`入口这里是示例，在下面的章节会替换成实际的内容。
 
 ### 安装 React
 
@@ -183,7 +182,8 @@ module.exports = {
 
 手动将react库 从`node_modules` 复制到 `wwwroot/js/lib` 目录中，如下图所示：  
 
-![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/06-folder-react.png)
+![06-folder-react][21]
+
 
 我们实际使用到的文件是`react.min.js`和`react-dom.min.js` 。
 
@@ -204,7 +204,7 @@ module.exports = {
 
     C:\proj> typings install react-dom --ambient --save
 
-The `--ambient` 标志是让 **typings** 在社区版本中查找 `.d.ts` TypeScript 定义文件，它们都在[DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)  
+The `--ambient` 标志是让 **typings** 在社区版本中查找 `.d.ts` TypeScript 定义文件，它们都在[DefinitelyTyped][22] 
 `--save` 标志是让这些安装的信息保存到`typings.json`配置文件中
 
 安装完成后你打开文件 `typings/browser.d.ts` 可以看到:
@@ -391,9 +391,9 @@ module.exports = {
 
 现在所有的工作做完后，我们打开浏览器直接访问`/example01/`来查看效果了 -- 哈哈，我们第一个可运行的React应用！
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-01.png)](http://servicestackapps.github.io/typescript-redux/example01/)
+![此处输入图片的描述][23]
 
-> Demo: [/typescript-redux/example01/](http://servicestackapps.github.io/typescript-redux/example01/)
+> Demo:[/typescript-react/example01/][24]
 
 
 
@@ -461,8 +461,9 @@ import  HelloWorld  from './HelloWorld';
     ...
 ```
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-02.png)](http://servicestackapps.github.io/typescript-redux/example02/)
-> Demo: [/typescript-redux/example02/](http://servicestackapps.github.io/typescript-redux/example02/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-02.png)]
+
+> Demo: [/typescript-redux/example02/](http://xuanye.github.io/typescript-react/source/example02/)
 
 ## [Example 3 - 创建一个有状态的组件](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example03)
 
@@ -504,8 +505,8 @@ export default class Counter extends React.Component<any, any> {
 
 好像没什么惊喜，我们在页面中添加了一个计数器，通过按钮 increment / decrement 来改变它的值， 实际使用的是React内置的`setState()`方法:
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-03.png)](http://servicestackapps.github.io/typescript-redux/example03/) 
-> Demo: [/typescript-redux/example03/](http://servicestackapps.github.io/typescript-redux/example03/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-03.png)](http://xuanye.github.io/typescript-react/source/example03/) 
+> Demo: [/typescript-redux/example03/](http://xuanye.github.io/typescript-react/source/example03/)
 
 ### 使用 Redux 
 
@@ -527,8 +528,8 @@ export default class Counter extends React.Component<any, any> {
 
 这里推荐两个中文在线文档吧，虽然也经常打不开：
 
-- [Redux中文指南][5]
-- [Redux tutorial 中文][6]
+- [Redux中文指南][25]
+- [Redux tutorial 中文][26]
 
 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
 
@@ -633,8 +634,8 @@ let store = createStore(
 
 现在我们的计数器已经"Redux化"了，重新运行一下示例，并看看和之前的效果是否一致？ 
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-04.png)](http://servicestackapps.github.io/typescript-redux/example04/)
-> Demo: [/typescript-redux/example04/](http://servicestackapps.github.io/typescript-redux/example04/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-04.png)](http://xuanye.github.io/typescript-react/source/example04/)
+> Demo: [/typescript-redux/example04/](http://xuanye.github.io/typescript-react/source/example04/)
 
 ## 安装 React Redux
 
@@ -719,8 +720,8 @@ export default class Counter extends React.Component<any, any> {
 
 改动对页面没什么影响，我们的程序应该还是可以正常运行：
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-05.png)](http://servicestackapps.github.io/typescript-redux/example05/)
-> Demo: [/typescript-redux/example05/](http://servicestackapps.github.io/typescript-redux/example05/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-05.png)](http://xuanye.github.io/typescript-react/source/example05/)
+> Demo: [/typescript-redux/example05/](http://xuanye.github.io/typescript-react/source/example05/)
 
 
 ## [Example 6 - 使用 connect() 创建无状态的组件](https://github.com/xuanye/typescript-redux-sample/tree/master/src/TypescriptRedux/TypescriptRedux.WebHost/source/example06)
@@ -773,8 +774,8 @@ Redux的 `connect()`  会将上述函数组合到一个更高一级的组件中�
 
 这些修改对页面来说仍然是透明的，你可以打开并重新试试它的功能
      
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-05.png)](http://servicestackapps.github.io/typescript-redux/example06/)
-> Demo: [/typescript-redux/example06/](http://servicestackapps.github.io/typescript-redux/example06/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-05.png)](http://xuanye.github.io/typescript-react/source/example06/)
+> Demo: [/typescript-redux/example06/](http://xuanye.github.io/typescript-react/source/example06/)
 
 ## 安装 es6-shim
 
@@ -1281,8 +1282,8 @@ ReactDOM.render(
 现在我们可以看到一个可工作的Shape生成器了，这是它的全貌：
 
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-07.png)](http://servicestackapps.github.io/typescript-redux/example07/)
-> Demo: [/typescript-redux/example07/](http://servicestackapps.github.io/typescript-redux/example07/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-07.png)](http://xuanye.github.io/typescript-react/source/example07/)
+> Demo: [/typescript-redux/example07/](http://xuanye.github.io/typescript-react/source/example07/)
 
 有一点需要指出我们的顶级App只会绘制一次，因为它不包含在任何一个父组件，也没有调用`setState()`来改变state并触发重绘。所以我们需要包装一下我们的ColorPicker进一个`Redux-aware` ColorWrapper ，并且映射我们的Redux state到它的组件属性中，同样把`onChange` 转会成触发适当的Redux action
 
@@ -1576,8 +1577,9 @@ export default class History extends React.Component<any, any> {
 现在我们的实例已经支持丰富的历史功能了:)
 
 
-[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-08.png)](http://servicestackapps.github.io/typescript-redux/example08/)
-> Demo: [/typescript-redux/example08/](http://servicestackapps.github.io/typescript-redux/example08/)
+[![](https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-08.png)](http://xuanye.github.io/typescript-react/source/example08/)
+
+> Demo: [/typescript-redux/example08/](http://xuanye.github.io/typescript-react/source/example08/)
 
 ### [改进撤销功能](http://rackt.org/redux/docs/recipes/ImplementingUndoHistory.html)
 
@@ -1587,11 +1589,29 @@ export default class History extends React.Component<any, any> {
 注：原文中，作者还提供了一个多个客户端交互的示例程序，因为涉及到服务端的编码，主要是StackService本身（.NET的一个webapi框架）的实现，所以省略了，后续有空我再编写一个Nodejs实现的部分吧，如果机会的话。。我相信你懂的 ，或者可以先看下原文吧。
 
 
-
-
-  [1]: https://webpack.github.io
-  [2]: https://segmentfault.com/a/1190000002551952
-  [3]: https://zhongsp.gitbooks.io/typescript-handbook/content/doc/handbook/quick-start/react-webpack.html
-  [4]: http://webpack.github.io/docs/configuration.html
-  [5]: http://cn.redux.js.org
-  [6]: https://github.com/react-guide/redux-tutorial-cn
+  [1]: https://github.com/ServiceStackApps/typescript-redux
+  [2]: http://www.typescriptlang.org/
+  [3]: https://github.com/typings/typings
+  [4]: https://facebook.github.io/react/
+  [5]: https://github.com/rackt/redux
+  [6]: http://www.typescriptlang.org/
+  [7]: https://www.microsoft.com/en-us/download/details.aspx?id=48593
+  [8]: https://www.microsoft.com/en-us/download/details.aspx?id=48739
+  [9]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/01-empty-web-project.png
+  [10]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/02-empty-web-template.png
+  [11]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/03-add-typescript-file.png
+  [12]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/04-typescript-confirmation-dialog.png
+  [13]: https://github.com/typings/typings
+  [14]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/05-configure-typescript-vs.png
+  [15]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/05-add-tsconfig.png
+  [16]: https://webpack.github.io
+  [17]: https://segmentfault.com/a/1190000002551952
+  [18]: https://zhongsp.gitbooks.io/typescript-handbook/content/doc/handbook/quick-start/react-webpack.html
+  [19]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/06-folder-list.png
+  [20]: http://webpack.github.io/docs/configuration.html
+  [21]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/06-folder-react.png
+  [22]: https://github.com/DefinitelyTyped/DefinitelyTyped
+  [23]: https://raw.githubusercontent.com/xuanye/typescript-redux-sample/master/img/preview-01.png
+  [24]: http://xuanye.github.io/typescript-react/source/sample01/
+  [25]: http://cn.redux.js.org
+  [26]: https://github.com/react-guide/redux-tutorial-cn

@@ -70,7 +70,6 @@
     <Content Include="source\sample05\index.html" />
     <Content Include="Web.config" />
     <Content Include="webpack.config.js" />
-    <Content Include="wwwroot\js\helloworld.js" />
     <Content Include="wwwroot\js\lib\react\react-dom-server.js" />
     <Content Include="wwwroot\js\lib\react\react-dom-server.min.js" />
     <Content Include="wwwroot\js\lib\react\react-dom.js" />
@@ -100,7 +99,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="wwwroot\js\helloworld.js.map" />
     <Content Include="wwwroot\js\lib\react\.bower.json" />
     <Content Include="wwwroot\js\lib\react\bower.json" />
     <Content Include="wwwroot\js\lib\react\LICENSE" />
