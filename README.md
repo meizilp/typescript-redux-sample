@@ -1615,3 +1615,5 @@ export default class History extends React.Component<any, any> {
   [24]: http://xuanye.github.io/typescript-react/source/sample01/
   [25]: http://cn.redux.js.org
   [26]: https://github.com/react-guide/redux-tutorial-cn
+  
+  pull
